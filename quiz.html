@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KTET Quiz</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <div id="quiz-container">
+            <h2 id="question">Loading question...</h2>
+            <div id="options-container"></div>
+            <button id="next-btn" class="btn hidden">Next</button>
+        </div>
+        <div id="results-container" class="hidden">
+            <h2>Quiz Complete!</h2>
+            <p>Your score: <span id="score">0</span> / <span id="total-questions">0</span></p>
+            <a href="quiz.html" class="btn">Try Again</a>
+            <a href="index.html" class="btn">Go Home</a>
+        </div>
+    </div>
+    <script src="js/quiz.js"></script>
+</body>
+</html>

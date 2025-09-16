@@ -1,0 +1,42 @@
+[
+  {
+    "question": "Which is the correct full form of KTET?",
+    "options": [
+        "Kerala Teacher Eligibility Test",
+        "Kerala Technical Entrance Test",
+        "Kerala Training Exam Test",
+        "Kerala Talent Examination Test"
+    ],
+    "answerIndex": 0
+  },
+  {
+    "question": "The 'Child for teacher' is a...",
+    "options": [
+        "Customer",
+        "Co-worker",
+        "Client",
+        "All the above"
+    ],
+    "answerIndex": 2
+  },
+  {
+    "question": "According to Jean Piaget, children develop abstract logic and reasoning skill during:",
+    "options": [
+        "Sensorimotor stage",
+        "Preoperational stage",
+        "Formal operational stage",
+        "Concrete operational stage"
+    ],
+    "answerIndex": 2
+  },
+  {
+    "question": "What is the primary objective of Continuous and Comprehensive Evaluation (CCE)?",
+    "options": [
+        "To rank students",
+        "To assess all aspects of a child's development",
+        "To prepare students for annual exams",
+        "To reduce the teacher's workload"
+    ],
+    "answerIndex": 1
+  }
+]
