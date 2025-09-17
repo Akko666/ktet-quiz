@@ -3,14 +3,72 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KTET Quiz Hub</title>
+    <title>KTET Quiz</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <div class="container">
-        <h1>Welcome to the KTET Quiz Hub</h1>
-        <p>Test your knowledge for the Kerala Teacher Eligibility Test.</p>
-        <a href="quiz.html" class="btn">Start Quiz</a>
+
+    <div class="quiz-container">
+        <div class="quiz-main">
+            <p class="breadcrumbs">Home > Quiz List > General Knowledge</p>
+            <h1 class="question-title">This is where the quiz question will appear.</h1>
+            
+            <ul class="answer-options">
+                <li class="option">
+                    <span class="option-letter">A</span>
+                    <p>Eiusmod Tempor Incididunt Ut</p>
+                </li>
+                <li class="option">
+                    <span class="option-letter">B</span>
+                    <p>Fugiat Nulla Pariatur</p>
+                </li>
+                <li class="option">
+                    <span class="option-letter">C</span>
+                    <p>Voluptatem Accusantium Doloremque</p>
+                </li>
+                <li class="option">
+                    <span class="option-letter">D</span>
+                    <p>Totam Rem Aperiam</p>
+                </li>
+            </ul>
+
+            <button class="submit-btn">Submit Answer</button>
+        </div>
+
+        <div class="quiz-sidebar">
+            <div class="timer-box">
+                <div class="timer">0:20</div>
+                <p>Timer Remaining:</p>
+            </div>
+            <div class="question-list-box">
+                <p>Quiz Questions List</p>
+                <ul class="question-list">
+                    <li>Quiz question 1</li>
+                    <li>Quiz question 2</li>
+                    <li>Quiz question 3</li>
+                    <li>Quiz question 4</li>
+                    <li>Quiz question 5</li>
+                    <li>Quiz question 6</li>
+                    <li>Quiz question 7</li>
+                    <li>Quiz question 8</li>
+                    <li>Quiz question 9</li>
+                    <li>Quiz question 10</li>
+                </ul>
+            </div>
+        </div>
     </div>
+
+    <div class="results-container hidden">
+        <div class="results-box">
+            <h1>Quiz Complete!</h1>
+            <p>Your score is</p>
+            <p class="final-score">
+                <span id="score">0</span> / <span id="total-questions">0</span>
+            </p>
+            <button class="restart-btn">Try Again</button>
+        </div>
+    </div>
+
+    <script src="js/script.js"></script>
 </body>
 </html>
