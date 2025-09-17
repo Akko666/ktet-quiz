@@ -1,87 +1,78 @@
-const questionElement = document.getElementById('question');
-const optionsContainer = document.getElementById('options-container');
-const nextBtn = document.getElementById('next-btn');
-const quizContainer = document.getElementById('quiz-container');
-const resultsContainer = document.getElementById('results-container');
-const scoreElement = document.getElementById('score');
-const totalQuestionsElement = document.getElementById('total-questions');
+// Get references to HTML elements
+const quiz = document.getElementById('quiz');
+const answerEls = document.querySelectorAll('.answer');
+const questionEl = document.getElementById('question');
+const a_text = document.getElementById('a_text');
+const b_text = document.getElementById('b_text');
+const c_text = document.getElementById('c_text');
+const d_text = document.getElementById('d_text');
+const submitBtn = document.getElementById('submit');
 
-let currentQuestionIndex = 0;
+let quizData = []; // This will hold our questions
+let currentQuiz = 0;
 let score = 0;
-let questions = [];
 
-async function startQuiz() {
+// Function to fetch quiz data from the JSON file
+async function fetchQuizData() {
     try {
-        const response = await fetch('data/questions.json');
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
+        const res = await fetch('../data/questions.json');
+        if (!res.ok) {
+            throw new Error(`HTTP error! status: ${res.status}`);
         }
-        questions = await response.json();
-        totalQuestionsElement.textContent = questions.length;
-        showQuestion();
+        quizData = await res.json();
+        loadQuiz(); // Load the first quiz question
     } catch (error) {
-        questionElement.textContent = 'Failed to load questions. Please try again later.';
-        console.error('There was a problem with the fetch operation:', error);
+        console.error("Could not fetch quiz data:", error);
+        questionEl.innerHTML = "Failed to load quiz questions. Please try refreshing the page.";
     }
 }
 
-function showQuestion() {
-    resetState();
-    const question = questions[currentQuestionIndex];
-    questionElement.textContent = question.question;
-
-    question.options.forEach((option, index) => {
-        const button = document.createElement('button');
-        button.textContent = option;
-        button.classList.add('option-btn');
-        button.dataset.index = index;
-        button.addEventListener('click', selectAnswer);
-        optionsContainer.appendChild(button);
-    });
+// Function to load the current quiz question and answers
+function loadQuiz() {
+    deselectAnswers();
+    const currentQuizData = quizData[currentQuiz];
+    questionEl.innerText = currentQuizData.question;
+    a_text.innerText = currentQuizData.a;
+    b_text.innerText = currentQuizData.b;
+    c_text.innerText = currentQuizData.c;
+    d_text.innerText = currentQuizData.d;
 }
 
-function resetState() {
-    while (optionsContainer.firstChild) {
-        optionsContainer.removeChild(optionsContainer.firstChild);
-    }
-    nextBtn.classList.add('hidden');
+// Function to deselect all radio button answers
+function deselectAnswers() {
+    answerEls.forEach(answerEl => answerEl.checked = false);
 }
 
-function selectAnswer(e) {
-    const selectedButton = e.target;
-    const selectedIndex = parseInt(selectedButton.dataset.index);
-    const correctIndex = questions[currentQuestionIndex].answerIndex;
-
-    if (selectedIndex === correctIndex) {
-        selectedButton.classList.add('correct');
-        score++;
-    } else {
-        selectedButton.classList.add('incorrect');
-    }
-
-    Array.from(optionsContainer.children).forEach(button => {
-        if (parseInt(button.dataset.index) === correctIndex) {
-            button.classList.add('correct');
+// Function to get the selected answer's ID
+function getSelected() {
+    let answer;
+    answerEls.forEach(answerEl => {
+        if (answerEl.checked) {
+            answer = answerEl.id;
         }
-        button.disabled = true;
     });
-
-    nextBtn.classList.remove('hidden');
+    return answer;
 }
 
-function showResults() {
-    quizContainer.classList.add('hidden');
-    resultsContainer.classList.remove('hidden');
-    scoreElement.textContent = score;
-}
-
-nextBtn.addEventListener('click', () => {
-    currentQuestionIndex++;
-    if (currentQuestionIndex < questions.length) {
-        showQuestion();
-    } else {
-        showResults();
+// Event listener for the submit button
+submitBtn.addEventListener('click', () => {
+    const answer = getSelected();
+    if (answer) {
+        if (answer === quizData[currentQuiz].correct) {
+            score++;
+        }
+        currentQuiz++;
+        if (currentQuiz < quizData.length) {
+            loadQuiz();
+        } else {
+            // Display final score
+            quiz.innerHTML = `
+                <h2>You answered ${score}/${quizData.length} questions correctly</h2>
+                <button onclick="location.reload()">Reload Quiz</button>
+            `;
+        }
     }
 });
 
-startQuiz();
+// Start the process by fetching the quiz data
+fetchQuizData();

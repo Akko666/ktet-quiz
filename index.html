@@ -3,72 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KTET Quiz</title>
+    <title>KTET Quiz Hub</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-
-    <div class="quiz-container">
-        <div class="quiz-main">
-            <p class="breadcrumbs">Home > Quiz List > General Knowledge</p>
-            <h1 class="question-title">This is where the quiz question will appear.</h1>
-            
-            <ul class="answer-options">
-                <li class="option">
-                    <span class="option-letter">A</span>
-                    <p>Eiusmod Tempor Incididunt Ut</p>
-                </li>
-                <li class="option">
-                    <span class="option-letter">B</span>
-                    <p>Fugiat Nulla Pariatur</p>
-                </li>
-                <li class="option">
-                    <span class="option-letter">C</span>
-                    <p>Voluptatem Accusantium Doloremque</p>
-                </li>
-                <li class="option">
-                    <span class="option-letter">D</span>
-                    <p>Totam Rem Aperiam</p>
-                </li>
+    <header>
+        <nav>
+            <div class="logo">KTET Quiz Hub</div>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="quiz.html">Quiz</a></li>
             </ul>
+        </nav>
+    </header>
 
-            <button class="submit-btn">Submit Answer</button>
-        </div>
-
-        <div class="quiz-sidebar">
-            <div class="timer-box">
-                <div class="timer">0:20</div>
-                <p>Timer Remaining:</p>
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Unlock Your KTET Potential</h1>
+                <p>Challenge yourself with our curated quizzes and master the concepts needed to ace the Kerala Teacher Eligibility Test.</p>
+                <a href="quiz.html" class="cta-button">Start a Quiz Now!</a>
             </div>
-            <div class="question-list-box">
-                <p>Quiz Questions List</p>
-                <ul class="question-list">
-                    <li>Quiz question 1</li>
-                    <li>Quiz question 2</li>
-                    <li>Quiz question 3</li>
-                    <li>Quiz question 4</li>
-                    <li>Quiz question 5</li>
-                    <li>Quiz question 6</li>
-                    <li>Quiz question 7</li>
-                    <li>Quiz question 8</li>
-                    <li>Quiz question 9</li>
-                    <li>Quiz question 10</li>
-                </ul>
+        </section>
+
+        <section class="features">
+            <h2>Why Choose Us?</h2>
+            <div class="feature-cards">
+                <div class="card">
+                    <h3>Comprehensive Topics</h3>
+                    <p>Covering all major subjects and categories of the KTET exam.</p>
+                </div>
+                <div class="card">
+                    <h3>Instant Feedback</h3>
+                    <p>Track your progress and learn from your mistakes immediately.</p>
+                </div>
+                <div class="card">
+                    <h3>Free & Accessible</h3>
+                    <p>Completely free resources to help you prepare effectively.</p>
+                </div>
             </div>
-        </div>
-    </div>
+        </section>
+    </main>
 
-    <div class="results-container hidden">
-        <div class="results-box">
-            <h1>Quiz Complete!</h1>
-            <p>Your score is</p>
-            <p class="final-score">
-                <span id="score">0</span> / <span id="total-questions">0</span>
-            </p>
-            <button class="restart-btn">Try Again</button>
-        </div>
-    </div>
-
-    <script src="js/script.js"></script>
+    <footer>
+        <p>&copy; 2024 KTET Quiz Hub. All Rights Reserved.</p>
+    </footer>
 </body>
 </html>

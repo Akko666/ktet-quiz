@@ -3,23 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KTET Quiz</title>
+    <title>KTET Quiz - General Knowledge</title>
     <link rel="stylesheet" href="css/style.css">
-</head>
+    <link rel="stylesheet" href="css/quiz-style.css"> </head>
 <body>
-    <div class="container">
-        <div id="quiz-container">
-            <h2 id="question">Loading question...</h2>
-            <div id="options-container"></div>
-            <button id="next-btn" class="btn hidden">Next</button>
+    <header>
+        <nav>
+            <div class="logo">KTET Quiz Hub</div>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="quiz.html">Quiz</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="quiz-main">
+        <div class="quiz-container" id="quiz">
+            <div class="quiz-header">
+                <h2 id="question">Question text is loading...</h2>
+                <ul>
+                    <li>
+                        <input type="radio" name="answer" id="a" class="answer">
+                        <label for="a" id="a_text">Answer a</label>
+                    </li>
+                    <li>
+                        <input type="radio" name="answer" id="b" class="answer">
+                        <label for="b" id="b_text">Answer b</label>
+                    </li>
+                    <li>
+                        <input type="radio" name="answer" id="c" class="answer">
+                        <label for="c" id="c_text">Answer c</label>
+                    </li>
+                    <li>
+                        <input type="radio" name="answer" id="d" class="answer">
+                        <label for="d" id="d_text">Answer d</label>
+                    </li>
+                </ul>
+            </div>
+            <button id="submit">Submit</button>
         </div>
-        <div id="results-container" class="hidden">
-            <h2>Quiz Complete!</h2>
-            <p>Your score: <span id="score">0</span> / <span id="total-questions">0</span></p>
-            <a href="quiz.html" class="btn">Try Again</a>
-            <a href="index.html" class="btn">Go Home</a>
-        </div>
-    </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 KTET Quiz Hub. All Rights Reserved.</p>
+    </footer>
+
     <script src="js/quiz.js"></script>
 </body>
 </html>
