@@ -3,50 +3,392 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KTET Quiz Hub</title>
-    <link rel="stylesheet" href="css/style.css">
+    <title>KTET Quiz Hub - Modern Learning Platform</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .quiz-option.selected {
+            background-color: #dbeafe; /* blue-100 */
+            border-color: #3b82f6; /* blue-500 */
+        }
+        .quiz-option.correct {
+            background-color: #dcfce7; /* green-100 */
+            border-color: #22c55e; /* green-500 */
+        }
+        .quiz-option.incorrect {
+            background-color: #fee2e2; /* red-100 */
+            border-color: #ef4444; /* red-500 */
+        }
+        /* Carousel Styles */
+        .carousel-item {
+            transition: opacity 1s ease-in-out;
+        }
+    </style>
 </head>
-<body>
-    <header>
-        <nav>
-            <div class="logo">KTET Quiz Hub</div>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="quiz.html">Quiz</a></li>
-            </ul>
+<body class="bg-gray-50 text-gray-800">
+
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="text-2xl font-bold text-purple-700">KTET Quiz Hub</div>
+            <div>
+                <a href="#" id="home-link" class="text-gray-600 hover:text-purple-700 font-medium">Home</a>
+                <a href="#" id="start-quiz-nav" class="ml-6 bg-purple-600 text-white font-semibold px-4 py-2 rounded-md hover:bg-purple-700 transition-colors">Start Quiz</a>
+            </div>
         </nav>
     </header>
 
-    <main>
-        <section class="hero">
-            <div class="hero-content">
-                <h1>Unlock Your KTET Potential</h1>
-                <p>Challenge yourself with our curated quizzes and master the concepts needed to ace the Kerala Teacher Eligibility Test.</p>
-                <a href="quiz.html" class="cta-button">Start a Quiz Now!</a>
-            </div>
-        </section>
+    <main id="main-content" class="container mx-auto px-6 py-12">
+        <div id="home-view">
+            <section id="hero-carousel" class="relative w-full h-[30rem] mx-auto rounded-xl overflow-hidden shadow-2xl">
+                <div class="carousel-container w-full h-full">
+                    <div class="carousel-item absolute inset-0">
+                        <img src="https://placehold.co/1200x600/8B5CF6/FFFFFF?text=Welcome!" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-black bg-opacity-50 flex flex-col justify-center items-center text-center text-white p-4">
+                            <h1 class="text-3xl md:text-5xl font-extrabold mb-4">Master the KTET Exam</h1>
+                            <p class="text-lg md:text-xl max-w-3xl">Your ultimate destination for curated quizzes and resources.</p>
+                        </div>
+                    </div>
+                    <div class="carousel-item absolute inset-0 opacity-0">
+                        <img src="https://placehold.co/1200x600/EC4899/FFFFFF?text=All+Subjects" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-black bg-opacity-50 flex flex-col justify-center items-center text-center text-white p-4">
+                            <h1 class="text-3xl md:text-5xl font-extrabold mb-4">Comprehensive Subject Quizzes</h1>
+                            <p class="text-lg md:text-xl max-w-3xl">Practice tests available for all subjects covered in the KTET exam.</p>
+                        </div>
+                    </div>
+                    <div class="carousel-item absolute inset-0 opacity-0">
+                        <img src="https://placehold.co/1200x600/10B981/FFFFFF?text=Full+Syllabus" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-black bg-opacity-50 flex flex-col justify-center items-center text-center text-white p-4">
+                            <h1 class="text-3xl md:text-5xl font-extrabold mb-4">Full Syllabus Coverage</h1>
+                            <p class="text-lg md:text-xl max-w-3xl">Our questions are designed to cover the entire KTET syllabus, ensuring you're fully prepared.</p>
+                        </div>
+                    </div>
+                </div>
+                <button id="prev-btn" class="absolute top-1/2 left-4 -translate-y-1/2 bg-white/30 text-white p-3 rounded-full hover:bg-white/50 transition">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
+                </button>
+                <button id="next-btn-carousel" class="absolute top-1/2 right-4 -translate-y-1/2 bg-white/30 text-white p-3 rounded-full hover:bg-white/50 transition">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
+                </button>
+            </section>
 
-        <section class="features">
-            <h2>Why Choose Us?</h2>
-            <div class="feature-cards">
-                <div class="card">
-                    <h3>Comprehensive Topics</h3>
-                    <p>Covering all major subjects and categories of the KTET exam.</p>
+            <section class="mt-20">
+                <h2 class="text-3xl font-bold text-center mb-12">Explore Our Quiz Categories</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-200">
+                        <h3 class="text-xl font-bold mb-2">Child Development & Pedagogy</h3>
+                        <p class="text-gray-600 mb-4">Crucial topics for understanding student psychology and teaching methods.</p>
+                        <button class="w-full text-center bg-gray-100 text-purple-700 font-semibold py-2 rounded-md hover:bg-gray-200 start-category-quiz">Start Section</button>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-200">
+                        <h3 class="text-xl font-bold mb-2">Mathematics</h3>
+                        <p class="text-gray-600 mb-4">Sharpen your quantitative reasoning skills.</p>
+                         <button class="w-full text-center bg-gray-100 text-purple-700 font-semibold py-2 rounded-md hover:bg-gray-200 start-category-quiz">Start Section</button>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-200">
+                        <h3 class="text-xl font-bold mb-2">Malayalam</h3>
+                        <p class="text-gray-600 mb-4">Test your knowledge of Malayalam grammar and comprehension.</p>
+                         <button class="w-full text-center bg-gray-100 text-purple-700 font-semibold py-2 rounded-md hover:bg-gray-200 start-category-quiz">Start Section</button>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-200">
+                        <h3 class="text-xl font-bold mb-2">English</h3>
+                        <p class="text-gray-600 mb-4">Improve your English language and comprehension skills.</p>
+                         <button class="w-full text-center bg-gray-100 text-purple-700 font-semibold py-2 rounded-md hover:bg-gray-200 start-category-quiz">Start Section</button>
+                    </div>
+                     <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-200">
+                        <h3 class="text-xl font-bold mb-2">Science</h3>
+                        <p class="text-gray-600 mb-4">Test your scientific aptitude and knowledge.</p>
+                         <button class="w-full text-center bg-gray-100 text-purple-700 font-semibold py-2 rounded-md hover:bg-gray-200 start-category-quiz">Start Section</button>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-200">
+                        <h3 class="text-xl font-bold mb-2">KTET Full Syllabus</h3>
+                        <p class="text-gray-600 mb-4">Comprehensive quizzes covering the entire KTET syllabus.</p>
+                         <button class="w-full text-center bg-gray-100 text-purple-700 font-semibold py-2 rounded-md hover:bg-gray-200 start-category-quiz">View</button>
+                    </div>
                 </div>
-                <div class="card">
-                    <h3>Instant Feedback</h3>
-                    <p>Track your progress and learn from your mistakes immediately.</p>
+            </section>
+        </div>
+
+        <div id="quiz-view" class="hidden">
+            <div class="max-w-3xl mx-auto bg-white p-8 rounded-2xl shadow-xl border border-gray-200">
+                <div id="quiz-header" class="mb-6">
+                     <p id="progress-text" class="text-lg font-semibold text-gray-700">Question 1 of X</p>
+                     <div class="w-full bg-gray-200 rounded-full h-2.5 mt-2">
+                         <div id="progress-bar" class="bg-purple-600 h-2.5 rounded-full" style="width: 0%"></div>
+                     </div>
                 </div>
-                <div class="card">
-                    <h3>Free & Accessible</h3>
-                    <p>Completely free resources to help you prepare effectively.</p>
+                <h2 id="question" class="text-2xl font-bold mb-6 text-gray-900">Question text is loading...</h2>
+                <div id="options-container" class="space-y-4">
+                    </div>
+                 <div id="feedback-message" class="mt-4 text-center font-semibold hidden"></div>
+                <div class="mt-8 flex justify-between items-center">
+                    <button id="next-btn-quiz" class="bg-purple-600 text-white font-bold px-6 py-3 rounded-lg hover:bg-purple-700 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed" disabled>Next Question</button>
                 </div>
             </div>
-        </section>
+            <div id="results-view" class="hidden text-center max-w-3xl mx-auto bg-white p-8 rounded-2xl shadow-xl border border-gray-200">
+                <h2 class="text-4xl font-extrabold text-gray-900 mb-4">Quiz Complete!</h2>
+                <p class="text-2xl text-gray-700 mb-2">Your Score:</p>
+                <p id="score-text" class="text-6xl font-bold text-purple-600 mb-8">0 / 0</p>
+                <button id="reload-btn" class="bg-purple-600 text-white font-bold px-8 py-4 rounded-lg text-lg hover:bg-purple-700 transition-transform transform hover:scale-105">
+                    Try Again
+                </button>
+            </div>
+        </div>
+
     </main>
 
-    <footer>
-        <p>&copy; 2024 KTET Quiz Hub. All Rights Reserved.</p>
+    <footer class="bg-white mt-16 border-t">
+        <div class="container mx-auto px-6 py-8 text-center text-gray-500">
+            <p>&copy; 2024 KTET Quiz Hub. All Rights Reserved.</p>
+        </div>
     </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // View Elements
+            const homeView = document.getElementById('home-view');
+            const quizView = document.getElementById('quiz-view');
+            const resultsView = document.getElementById('results-view');
+            const quizContainer = quizView.querySelector('.max-w-3xl');
+
+            // Button Elements
+            const startQuizNavBtn = document.getElementById('start-quiz-nav');
+            const categoryStartBtns = document.querySelectorAll('.start-category-quiz');
+            const nextBtnQuiz = document.getElementById('next-btn-quiz');
+            const reloadBtn = document.getElementById('reload-btn');
+            const homeLink = document.getElementById('home-link');
+
+            // Carousel Elements
+            const carouselItems = document.querySelectorAll('.carousel-item');
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtnCarousel = document.getElementById('next-btn-carousel');
+            let currentSlide = 0;
+            let slideInterval;
+
+            // Quiz Elements
+            const questionEl = document.getElementById('question');
+            const optionsContainer = document.getElementById('options-container');
+            const progressText = document.getElementById('progress-text');
+            const progressBar = document.getElementById('progress-bar');
+            const feedbackMessage = document.getElementById('feedback-message');
+            
+            // Results Elements
+            const scoreText = document.getElementById('score-text');
+            
+            // --- QUESTION DATA LOADED FROM JSON ---
+            let allQuizData = { quiz: [] };
+            let questionsLoaded = false;
+
+            fetch('data/questions.json')
+                .then(response => response.json())
+                .then(data => {
+                    allQuizData = data;
+                    questionsLoaded = true;
+                })
+                .catch(error => {
+                    console.error('Error fetching questions:', error);
+                    allQuizData = { quiz: [] };
+                    questionsLoaded = true; // Even on error, set to true to allow start
+                });
+
+            let quizData = [];
+            let currentQuiz = 0;
+            let score = 0;
+            let currentSet = 0;
+            const questionsPerSet = 15;
+            let hasMoreSets = false;
+            let validQuestions = [];
+
+            // --- Carousel Logic ---
+            function showSlide(index) {
+                carouselItems.forEach((item, i) => {
+                    item.classList.add('opacity-0');
+                    if (i === index) {
+                        item.classList.remove('opacity-0');
+                    }
+                });
+            }
+
+            function nextSlide() {
+                currentSlide = (currentSlide + 1) % carouselItems.length;
+                showSlide(currentSlide);
+            }
+
+            function prevSlide() {
+                currentSlide = (currentSlide - 1 + carouselItems.length) % carouselItems.length;
+                showSlide(currentSlide);
+            }
+            
+            function startCarousel() {
+                stopCarousel();
+                showSlide(currentSlide);
+                slideInterval = setInterval(nextSlide, 5000);
+            }
+
+            function stopCarousel() {
+                clearInterval(slideInterval);
+            }
+
+            // --- General UI Logic ---
+            function showView(view) {
+                homeView.classList.add('hidden');
+                quizView.classList.add('hidden');
+                if (view === 'home') {
+                    homeView.classList.remove('hidden');
+                    startCarousel();
+                } else if (view === 'quiz') {
+                    quizView.classList.remove('hidden');
+                    stopCarousel();
+                }
+            }
+
+            // --- Quiz Logic ---
+            function startQuiz() {
+                if (!questionsLoaded) {
+                    alert('Questions are still loading. Please wait a moment and try again.');
+                    return;
+                }
+                validQuestions = allQuizData.quiz.filter(q => q.question && q.options && q.options.length > 0);
+                if (validQuestions.length === 0) {
+                     console.error('No valid questions found. Cannot start quiz.');
+                     questionEl.innerText = "Sorry, no questions are available at the moment.";
+                     optionsContainer.innerHTML = "";
+                     nextBtnQuiz.classList.add('hidden');
+                     quizContainer.classList.remove('hidden');
+                     resultsView.classList.add('hidden');
+                     showView('quiz');
+                     return;
+                }
+                let startIndex = currentSet * questionsPerSet;
+                let endIndex = startIndex + questionsPerSet;
+                quizData = validQuestions.slice(startIndex, endIndex);
+                hasMoreSets = (endIndex < validQuestions.length);
+                if (quizData.length === 0) {
+                    // No more sets, reset
+                    currentSet = 0;
+                    startQuiz();
+                    return;
+                }
+                currentQuiz = 0;
+                score = 0;
+                resultsView.classList.add('hidden');
+                quizContainer.classList.remove('hidden');
+                nextBtnQuiz.classList.remove('hidden');
+                showView('quiz');
+                loadQuiz();
+            }
+
+            function loadQuiz() {
+                const currentQuizData = quizData[currentQuiz];
+
+                if (!currentQuizData) {
+                    showResults();
+                    return;
+                }
+                
+                feedbackMessage.classList.add('hidden');
+                questionEl.innerText = currentQuizData.question;
+                optionsContainer.innerHTML = '';
+                optionsContainer.style.pointerEvents = 'auto';
+
+                currentQuizData.options.forEach(option => {
+                    const optionEl = document.createElement('div');
+                    optionEl.classList.add('quiz-option', 'p-4', 'border-2', 'rounded-lg', 'cursor-pointer', 'hover:bg-purple-50', 'transition-colors');
+                    optionEl.dataset.key = option.key.toLowerCase();
+                    optionEl.innerHTML = `<span class="font-semibold mr-2">${option.key}.</span> ${option.text}`;
+                    optionEl.addEventListener('click', () => selectAnswer(optionEl, currentQuizData));
+                    optionsContainer.appendChild(optionEl);
+                });
+                
+                updateProgress();
+                nextBtnQuiz.disabled = true;
+            }
+            
+            function selectAnswer(selectedOptionEl, quizData) {
+                if (optionsContainer.querySelector('.correct, .incorrect')) return;
+
+                const selectedKey = selectedOptionEl.dataset.key;
+                const correctOption = quizData.options.find(opt => opt.correct);
+                const correctKey = correctOption ? correctOption.key.toLowerCase() : null;
+                
+                optionsContainer.style.pointerEvents = 'none';
+
+                if (correctKey && selectedKey === correctKey) {
+                    score++;
+                    selectedOptionEl.classList.add('correct');
+                    feedbackMessage.innerText = "Correct!";
+                    feedbackMessage.classList.remove('text-red-600');
+                    feedbackMessage.classList.add('text-green-600');
+                } else {
+                    selectedOptionEl.classList.add('incorrect');
+                    feedbackMessage.innerText = "Sorry, that's not correct.";
+                    feedbackMessage.classList.remove('text-green-600');
+                    feedbackMessage.classList.add('text-red-600');
+                    if(correctKey) {
+                       const correctOptionEl = optionsContainer.querySelector(`[data-key='${correctKey}']`);
+                       if(correctOptionEl) correctOptionEl.classList.add('correct');
+                    }
+                }
+                
+                feedbackMessage.classList.remove('hidden');
+                nextBtnQuiz.disabled = false;
+            }
+            
+            function handleNextQuestion() {
+                currentQuiz++;
+                if (currentQuiz < quizData.length) {
+                    loadQuiz();
+                } else {
+                    showResults();
+                }
+            }
+            
+            function showResults() {
+                quizContainer.classList.add('hidden');
+                resultsView.classList.remove('hidden');
+                scoreText.innerText = `${score} / ${quizData.length} (Set ${currentSet + 1})`;
+                if (hasMoreSets) {
+                    reloadBtn.innerText = "Next Set";
+                } else {
+                    reloadBtn.innerText = "Try Again";
+                }
+            }
+
+            function updateProgress() {
+                progressText.innerText = `Question ${currentQuiz + 1} of ${quizData.length}`;
+                const progressPercentage = ((currentQuiz + 1) / quizData.length) * 100;
+                progressBar.style.width = `${progressPercentage}%`;
+            }
+
+            // Event Listeners
+            startQuizNavBtn.addEventListener('click', (e) => { e.preventDefault(); startQuiz(); });
+            categoryStartBtns.forEach(btn => btn.addEventListener('click', startQuiz));
+            nextBtnQuiz.addEventListener('click', handleNextQuestion);
+            reloadBtn.addEventListener('click', () => {
+                if (hasMoreSets) {
+                    currentSet++;
+                } else {
+                    currentSet = 0;
+                }
+                startQuiz();
+            });
+            homeLink.addEventListener('click', (e) => { e.preventDefault(); showView('home'); });
+            
+            // Carousel Event Listeners
+            prevBtn.addEventListener('click', () => {
+                prevSlide();
+                startCarousel(); // Reset interval on manual navigation
+            });
+            nextBtnCarousel.addEventListener('click', () => {
+                nextSlide();
+                startCarousel(); // Reset interval on manual navigation
+            });
+            
+            // Initial Load
+            showView('home');
+        });
+    </script>
 </body>
 </html>
