@@ -80,32 +80,32 @@
                     <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-200">
                         <h3 class="text-xl font-bold mb-2">Child Development & Pedagogy</h3>
                         <p class="text-gray-600 mb-4">Crucial topics for understanding student psychology and teaching methods.</p>
-                        <button class="w-full text-center bg-gray-100 text-purple-700 font-semibold py-2 rounded-md hover:bg-gray-200 start-category-quiz">Start Section</button>
+                        <button class="w-full text-center bg-gray-100 text-purple-700 font-semibold py-2 rounded-md hover:bg-gray-200 start-category-quiz" data-category="Child Development & Pedagogy">Start Section</button>
                     </div>
                     <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-200">
                         <h3 class="text-xl font-bold mb-2">Mathematics</h3>
                         <p class="text-gray-600 mb-4">Sharpen your quantitative reasoning skills.</p>
-                         <button class="w-full text-center bg-gray-100 text-purple-700 font-semibold py-2 rounded-md hover:bg-gray-200 start-category-quiz">Start Section</button>
+                        <button class="w-full text-center bg-gray-100 text-purple-700 font-semibold py-2 rounded-md hover:bg-gray-200 start-category-quiz" data-category="Mathematics">Start Section</button>
                     </div>
                     <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-200">
                         <h3 class="text-xl font-bold mb-2">Malayalam</h3>
                         <p class="text-gray-600 mb-4">Test your knowledge of Malayalam grammar and comprehension.</p>
-                         <button class="w-full text-center bg-gray-100 text-purple-700 font-semibold py-2 rounded-md hover:bg-gray-200 start-category-quiz">Start Section</button>
+                        <button class="w-full text-center bg-gray-100 text-purple-700 font-semibold py-2 rounded-md hover:bg-gray-200 start-category-quiz" data-category="Malayalam">Start Section</button>
                     </div>
                     <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-200">
                         <h3 class="text-xl font-bold mb-2">English</h3>
                         <p class="text-gray-600 mb-4">Improve your English language and comprehension skills.</p>
-                         <button class="w-full text-center bg-gray-100 text-purple-700 font-semibold py-2 rounded-md hover:bg-gray-200 start-category-quiz">Start Section</button>
+                        <button class="w-full text-center bg-gray-100 text-purple-700 font-semibold py-2 rounded-md hover:bg-gray-200 start-category-quiz" data-category="English">Start Section</button>
                     </div>
-                     <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-200">
+                    <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-200">
                         <h3 class="text-xl font-bold mb-2">Science</h3>
                         <p class="text-gray-600 mb-4">Test your scientific aptitude and knowledge.</p>
-                         <button class="w-full text-center bg-gray-100 text-purple-700 font-semibold py-2 rounded-md hover:bg-gray-200 start-category-quiz">Start Section</button>
+                        <button class="w-full text-center bg-gray-100 text-purple-700 font-semibold py-2 rounded-md hover:bg-gray-200 start-category-quiz" data-category="Science">Start Section</button>
                     </div>
                     <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-200">
                         <h3 class="text-xl font-bold mb-2">KTET Full Syllabus</h3>
                         <p class="text-gray-600 mb-4">Comprehensive quizzes covering the entire KTET syllabus.</p>
-                         <button class="w-full text-center bg-gray-100 text-purple-700 font-semibold py-2 rounded-md hover:bg-gray-200 start-category-quiz">View</button>
+                        <button class="w-full text-center bg-gray-100 text-purple-700 font-semibold py-2 rounded-md hover:bg-gray-200 start-category-quiz" data-category="KTET Full Syllabus">View</button>
                     </div>
                 </div>
             </section>
@@ -147,213 +147,157 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // View Elements
+            // --- All your view and button elements remain the same ---
             const homeView = document.getElementById('home-view');
             const quizView = document.getElementById('quiz-view');
             const resultsView = document.getElementById('results-view');
             const quizContainer = quizView.querySelector('.max-w-3xl');
-
-            // Button Elements
             const startQuizNavBtn = document.getElementById('start-quiz-nav');
             const categoryStartBtns = document.querySelectorAll('.start-category-quiz');
             const nextBtnQuiz = document.getElementById('next-btn-quiz');
             const reloadBtn = document.getElementById('reload-btn');
             const homeLink = document.getElementById('home-link');
-
-            // Carousel Elements
-            const carouselItems = document.querySelectorAll('.carousel-item');
-            const prevBtn = document.getElementById('prev-btn');
-            const nextBtnCarousel = document.getElementById('next-btn-carousel');
-            let currentSlide = 0;
-            let slideInterval;
-
-            // Quiz Elements
             const questionEl = document.getElementById('question');
             const optionsContainer = document.getElementById('options-container');
             const progressText = document.getElementById('progress-text');
             const progressBar = document.getElementById('progress-bar');
             const feedbackMessage = document.getElementById('feedback-message');
-            
-            // Results Elements
             const scoreText = document.getElementById('score-text');
             
-            // --- QUESTION DATA LOADED FROM JSON ---
-            let allQuizData = { quiz: [] };
-            let questionsLoaded = false;
+            // --- QUESTION DATA & QUIZ STATE ---
+            let allQuizData = {}; // Will hold all categories from JSON
+            let quizData = []; // Holds questions for the current quiz
+            let currentQuiz = 0;
+            let score = 0;
 
+            // Load all categorized questions from your JSON file when the page loads
             fetch('data/questions.json')
                 .then(response => response.json())
                 .then(data => {
-                    allQuizData = data;
-                    questionsLoaded = true;
+                    allQuizData = data.categories;
                 })
                 .catch(error => {
-                    console.error('Error fetching questions:', error);
-                    allQuizData = { quiz: [] };
-                    questionsLoaded = true; // Even on error, set to true to allow start
+                    console.error('Error fetching questions.json:', error);
                 });
 
-            let quizData = [];
-            let currentQuiz = 0;
-            let score = 0;
-            let currentSet = 0;
-            const questionsPerSet = 15;
-            let hasMoreSets = false;
-            let validQuestions = [];
+            // --- THE "PLAN B" FUNCTION: FETCH QUESTIONS FROM OUR AI API ---
+            async function fetchAIQuestions(category) {
+                questionEl.innerText = `No local questions found for ${category}. Generating new questions from AI...`;
+                optionsContainer.innerHTML = "";
+                nextBtnQuiz.disabled = true;
 
-            // --- Carousel Logic ---
-            function showSlide(index) {
-                carouselItems.forEach((item, i) => {
-                    item.classList.add('opacity-0');
-                    if (i === index) {
-                        item.classList.remove('opacity-0');
+                try {
+                    const response = await fetch('/api/generate', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            subject: "KTET Exam",
+                            topic: category, // Pass the clicked category to the AI
+                            count: 10
+                        })
+                    });
+
+                    if (!response.ok) {
+                        const errorInfo = await response.json();
+                        throw new Error(errorInfo.error || 'Failed to fetch questions from AI.');
                     }
-                });
-            }
-
-            function nextSlide() {
-                currentSlide = (currentSlide + 1) % carouselItems.length;
-                showSlide(currentSlide);
-            }
-
-            function prevSlide() {
-                currentSlide = (currentSlide - 1 + carouselItems.length) % carouselItems.length;
-                showSlide(currentSlide);
-            }
-            
-            function startCarousel() {
-                stopCarousel();
-                showSlide(currentSlide);
-                slideInterval = setInterval(nextSlide, 5000);
-            }
-
-            function stopCarousel() {
-                clearInterval(slideInterval);
-            }
-
-            // --- General UI Logic ---
-            function showView(view) {
-                homeView.classList.add('hidden');
-                quizView.classList.add('hidden');
-                if (view === 'home') {
-                    homeView.classList.remove('hidden');
-                    startCarousel();
-                } else if (view === 'quiz') {
-                    quizView.classList.remove('hidden');
-                    stopCarousel();
+                    const data = await response.json();
+                    return data.questions;
+                } catch (error) {
+                    console.error('Error fetching AI questions:', error);
+                    questionEl.innerText = `Error: ${error.message}. Please try again.`;
+                    return [];
                 }
             }
 
-            // --- Quiz Logic ---
-            function startQuiz() {
-                if (!questionsLoaded) {
-                    alert('Questions are still loading. Please wait a moment and try again.');
-                    return;
-                }
-                validQuestions = allQuizData.quiz.filter(q => q.question && q.options && q.options.length > 0);
-                if (validQuestions.length === 0) {
-                     console.error('No valid questions found. Cannot start quiz.');
-                     questionEl.innerText = "Sorry, no questions are available at the moment.";
-                     optionsContainer.innerHTML = "";
-                     nextBtnQuiz.classList.add('hidden');
-                     quizContainer.classList.remove('hidden');
-                     resultsView.classList.add('hidden');
-                     showView('quiz');
-                     return;
-                }
-                let startIndex = currentSet * questionsPerSet;
-                let endIndex = startIndex + questionsPerSet;
-                quizData = validQuestions.slice(startIndex, endIndex);
-                hasMoreSets = (endIndex < validQuestions.length);
-                if (quizData.length === 0) {
-                    // No more sets, reset
-                    currentSet = 0;
-                    startQuiz();
-                    return;
-                }
-                currentQuiz = 0;
-                score = 0;
+            // --- THE MAIN QUIZ LOGIC ---
+            async function startQuiz(category) {
+                showView('quiz');
                 resultsView.classList.add('hidden');
                 quizContainer.classList.remove('hidden');
+
+                let questions = [];
+                
+                // PLAN A: Check if questions for the category exist in the JSON file
+                if (allQuizData[category] && allQuizData[category].length > 0) {
+                    console.log(`Loading ${category} questions from JSON file.`);
+                    questions = allQuizData[category];
+                } 
+                // PLAN B: If not, call the AI to generate them
+                else {
+                    console.log(`No questions for ${category} in JSON. Calling AI.`);
+                    questions = await fetchAIQuestions(category);
+                }
+
+                if (questions.length === 0) {
+                    nextBtnQuiz.classList.add('hidden');
+                    return;
+                }
+
+                quizData = questions;
+                currentQuiz = 0;
+                score = 0;
                 nextBtnQuiz.classList.remove('hidden');
-                showView('quiz');
                 loadQuiz();
             }
-
+            
+            // The rest of the functions (loadQuiz, selectAnswer, showResults, etc.) are the same as before.
             function loadQuiz() {
-                const currentQuizData = quizData[currentQuiz];
-
-                if (!currentQuizData) {
+                if (currentQuiz >= quizData.length) {
                     showResults();
                     return;
                 }
-                
+                const currentQuizData = quizData[currentQuiz];
                 feedbackMessage.classList.add('hidden');
                 questionEl.innerText = currentQuizData.question;
                 optionsContainer.innerHTML = '';
                 optionsContainer.style.pointerEvents = 'auto';
-
-                currentQuizData.options.forEach(option => {
+                currentQuizData.options.forEach((optionText, index) => {
                     const optionEl = document.createElement('div');
                     optionEl.classList.add('quiz-option', 'p-4', 'border-2', 'rounded-lg', 'cursor-pointer', 'hover:bg-purple-50', 'transition-colors');
-                    optionEl.dataset.key = option.key.toLowerCase();
-                    optionEl.innerHTML = `<span class="font-semibold mr-2">${option.key}.</span> ${option.text}`;
+                    optionEl.dataset.index = index;
+                    optionEl.innerHTML = `<span class="font-semibold mr-2">${String.fromCharCode(65 + index)}.</span> ${optionText}`;
                     optionEl.addEventListener('click', () => selectAnswer(optionEl, currentQuizData));
                     optionsContainer.appendChild(optionEl);
                 });
-                
                 updateProgress();
                 nextBtnQuiz.disabled = true;
             }
-            
+
             function selectAnswer(selectedOptionEl, quizData) {
                 if (optionsContainer.querySelector('.correct, .incorrect')) return;
-
-                const selectedKey = selectedOptionEl.dataset.key;
-                const correctOption = quizData.options.find(opt => opt.correct);
-                const correctKey = correctOption ? correctOption.key.toLowerCase() : null;
-                
+                const selectedIndex = parseInt(selectedOptionEl.dataset.index, 10);
+                const correctIndex = quizData.correctIndex;
                 optionsContainer.style.pointerEvents = 'none';
-
-                if (correctKey && selectedKey === correctKey) {
+                if (selectedIndex === correctIndex) {
                     score++;
                     selectedOptionEl.classList.add('correct');
                     feedbackMessage.innerText = "Correct!";
-                    feedbackMessage.classList.remove('text-red-600');
                     feedbackMessage.classList.add('text-green-600');
+                    feedbackMessage.classList.remove('text-red-600');
                 } else {
                     selectedOptionEl.classList.add('incorrect');
-                    feedbackMessage.innerText = "Sorry, that's not correct.";
-                    feedbackMessage.classList.remove('text-green-600');
+                    const explanation = quizData.explanation || "Sorry, that's not correct.";
+                    feedbackMessage.innerText = explanation;
                     feedbackMessage.classList.add('text-red-600');
-                    if(correctKey) {
-                       const correctOptionEl = optionsContainer.querySelector(`[data-key='${correctKey}']`);
-                       if(correctOptionEl) correctOptionEl.classList.add('correct');
-                    }
+                    feedbackMessage.classList.remove('text-green-600');
+                    const correctOptionEl = optionsContainer.querySelector(`[data-index='${correctIndex}']`);
+                    if (correctOptionEl) correctOptionEl.classList.add('correct');
                 }
-                
                 feedbackMessage.classList.remove('hidden');
                 nextBtnQuiz.disabled = false;
+            }
+
+            function showResults() {
+                quizContainer.classList.add('hidden');
+                resultsView.classList.remove('hidden');
+                scoreText.innerText = `${score} / ${quizData.length}`;
+                reloadBtn.innerText = "Back to Home";
             }
             
             function handleNextQuestion() {
                 currentQuiz++;
-                if (currentQuiz < quizData.length) {
-                    loadQuiz();
-                } else {
-                    showResults();
-                }
-            }
-            
-            function showResults() {
-                quizContainer.classList.add('hidden');
-                resultsView.classList.remove('hidden');
-                scoreText.innerText = `${score} / ${quizData.length} (Set ${currentSet + 1})`;
-                if (hasMoreSets) {
-                    reloadBtn.innerText = "Next Set";
-                } else {
-                    reloadBtn.innerText = "Try Again";
-                }
+                loadQuiz();
             }
 
             function updateProgress() {
@@ -362,32 +306,28 @@
                 progressBar.style.width = `${progressPercentage}%`;
             }
 
-            // Event Listeners
-            startQuizNavBtn.addEventListener('click', (e) => { e.preventDefault(); startQuiz(); });
-            categoryStartBtns.forEach(btn => btn.addEventListener('click', startQuiz));
+            function showView(view) {
+                homeView.classList.add('hidden');
+                quizView.classList.add('hidden');
+                if (view === 'home') homeView.classList.remove('hidden');
+                else if (view === 'quiz') quizView.classList.remove('hidden');
+            }
+
+            // --- Event Listeners ---
+            startQuizNavBtn.addEventListener('click', (e) => { 
+                e.preventDefault(); 
+                // Default category for the main button
+                startQuiz("Child Development & Pedagogy"); 
+            });
+            categoryStartBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const category = btn.dataset.category;
+                    startQuiz(category);
+                });
+            });
             nextBtnQuiz.addEventListener('click', handleNextQuestion);
-            reloadBtn.addEventListener('click', () => {
-                if (hasMoreSets) {
-                    currentSet++;
-                } else {
-                    currentSet = 0;
-                }
-                startQuiz();
-            });
+            reloadBtn.addEventListener('click', () => showView('home')); // Go home after quiz
             homeLink.addEventListener('click', (e) => { e.preventDefault(); showView('home'); });
-            
-            // Carousel Event Listeners
-            prevBtn.addEventListener('click', () => {
-                prevSlide();
-                startCarousel(); // Reset interval on manual navigation
-            });
-            nextBtnCarousel.addEventListener('click', () => {
-                nextSlide();
-                startCarousel(); // Reset interval on manual navigation
-            });
-            
-            // Initial Load
-            showView('home');
         });
     </script>
 </body>
