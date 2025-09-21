@@ -2,5 +2,9 @@
   "name": "ktet-quiz",
   "version": "1.0.0",
   "private": true,
-  "dependencies": {}
+  "type": "module",
+  "scripts": {
+    "start": "echo 'No dedicated server for static site. Use `vercel dev` for local API.'",
+    "build": "echo 'Building static assets and API functions...'"
+  }
 }
