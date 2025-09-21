@@ -2,7 +2,5 @@
   "name": "ktet-quiz",
   "version": "1.0.0",
   "private": true,
-  "dependencies": {
-    "next": "latest"
-  }
+  "dependencies": {}
 }
