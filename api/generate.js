@@ -17,6 +17,10 @@ export default async function handler(req, res) {
         return res.status(500).json({ error: 'API credentials are not configured on the server.' });
     }
 
+    // Allow the model to be configured via environment variables, with a fallback to the free Mistral model.
+    // You can now set `OPENROUTER_MODEL` in Vercel to "gemma-7b-it:free", "google/gemini-pro", etc.
+    const AI_MODEL = process.env.OPENROUTER_MODEL || "mistralai/mistral-7b-instruct:free";
+
     const { topic = 'General Knowledge', count = 10, subject = 'KTET Exam' } = req.body;
 
     // Log the incoming request for debugging purposes on Vercel.
@@ -48,7 +52,7 @@ export default async function handler(req, res) {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                model: "x-ai/grok-4-fast:free", // <-- THIS IS THE ONLY LINE THAT HAS CHANGED
+                model: AI_MODEL,
                 messages: [
                     { "role": "system", "content": "You are a helpful assistant that only responds in valid, raw JSON format without any extra text or markdown." },
                     { "role": "user", "content": prompt }
@@ -59,7 +63,7 @@ export default async function handler(req, res) {
         // Check for errors from the AI service itself.
         if (!response.ok) {
             const errorText = await response.text();
-            console.error('OpenRouter API Error:', errorText);
+            console.error(`OpenRouter API Error (using model ${AI_MODEL}):`, errorText);
             return res.status(response.status).json({
                 error: `The AI service failed to generate questions. Please try again later.`,
                 details: errorText
