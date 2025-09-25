@@ -3,7 +3,7 @@
     "outputDirectory": ".",
     "functions": {
         "api/generate.js": {
-            "maxDuration": 15
+            "maxDuration": 30
         }
     }
 }
