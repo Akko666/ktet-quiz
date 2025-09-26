@@ -105,7 +105,7 @@
                     <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-200">
                         <h3 class="text-xl font-bold mb-2">KTET Syllabus</h3>
                         <p class="text-gray-600 mb-4">Access the complete syllabus for all categories.</p>
-                        <a href="pages/syllabus-selection.html" class="w-full block text-center bg-gray-100 text-purple-700 font-semibold py-2 rounded-md hover:bg-gray-200">View Options</a>
+                        <a href="pages/syllabus-selection.html" id="syllabus-link" class="w-full block text-center bg-gray-100 text-purple-700 font-semibold py-2 rounded-md hover:bg-gray-200">View Options</a>
                     </div>
                 </div>
             </section>
@@ -169,6 +169,7 @@
             const nextBtnQuiz = document.getElementById('next-btn-quiz');
             const reloadBtn = document.getElementById('reload-btn');
             const homeLink = document.getElementById('home-link');
+            const syllabusLink = document.getElementById('syllabus-link');
 
             // --- QUIZ CONTENT ELEMENTS ---
             const questionEl = document.getElementById('question');
@@ -322,6 +323,7 @@
             nextBtnQuiz.addEventListener('click', handleNextQuestion);
             reloadBtn.addEventListener('click', () => showView('home'));
             homeLink.addEventListener('click', (e) => { e.preventDefault(); showView('home'); });
+            syllabusLink.addEventListener('click', (e) => { e.stopPropagation(); });
 
             // --- CAROUSEL LOGIC ---
             const carouselItems = document.querySelectorAll('.carousel-item');
