@@ -136,14 +136,15 @@
                     <button id="next-btn-quiz" class="bg-purple-600 text-white font-bold px-6 py-3 rounded-lg hover:bg-purple-700 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed" disabled>Next Question</button>
                 </div>
             </div>
-            <div id="results-view" class="hidden text-center max-w-3xl mx-auto bg-white p-8 rounded-2xl shadow-xl border border-gray-200">
-                <h2 class="text-4xl font-extrabold text-gray-900 mb-4">Quiz Complete!</h2>
-                <p class="text-2xl text-gray-700 mb-2">Your Score:</p>
-                <p id="score-text" class="text-6xl font-bold text-purple-600 mb-8">0 / 0</p>
-                <button id="reload-btn" class="bg-purple-600 text-white font-bold px-8 py-4 rounded-lg text-lg hover:bg-purple-700 transition-transform transform hover:scale-105">
-                    Try Again
-                </button>
-            </div>
+        </div>
+        
+        <div id="results-view" class="hidden text-center max-w-3xl mx-auto bg-white p-8 rounded-2xl shadow-xl border border-gray-200 mt-12">
+            <h2 class="text-4xl font-extrabold text-gray-900 mb-4">Quiz Complete!</h2>
+            <p class="text-2xl text-gray-700 mb-2">Your Score:</p>
+            <p id="score-text" class="text-6xl font-bold text-purple-600 mb-8">0 / 0</p>
+            <button id="reload-btn" class="bg-purple-600 text-white font-bold px-8 py-4 rounded-lg text-lg hover:bg-purple-700 transition-transform transform hover:scale-105">
+                Try Again
+            </button>
         </div>
 
     </main>
@@ -156,17 +157,20 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // --- All your view and button elements remain the same ---
+            // --- VIEW ELEMENTS ---
             const homeView = document.getElementById('home-view');
             const quizView = document.getElementById('quiz-view');
             const loadingView = document.getElementById('loading-view');
             const resultsView = document.getElementById('results-view');
-            const quizContainer = quizView.querySelector('.max-w-3xl');
+            
+            // --- BUTTON & INTERACTIVE ELEMENTS ---
             const startQuizNavBtn = document.getElementById('start-quiz-nav');
             const categoryStartBtns = document.querySelectorAll('.start-category-quiz');
             const nextBtnQuiz = document.getElementById('next-btn-quiz');
             const reloadBtn = document.getElementById('reload-btn');
             const homeLink = document.getElementById('home-link');
+
+            // --- QUIZ CONTENT ELEMENTS ---
             const questionEl = document.getElementById('question');
             const optionsContainer = document.getElementById('options-container');
             const progressText = document.getElementById('progress-text');
@@ -174,33 +178,21 @@
             const feedbackMessage = document.getElementById('feedback-message');
             const scoreText = document.getElementById('score-text');
             
-            // --- QUESTION DATA & QUIZ STATE ---
-            let allQuizData = {}; // Will hold all categories from JSON
-            let quizData = []; // Holds questions for the current quiz
+            // --- QUIZ STATE ---
+            let quizData = [];
             let currentQuiz = 0;
             let score = 0;
 
-            // Load all categorized questions from your JSON file when the page loads
-            fetch('data/questions.json')
-                .then(response => response.json())
-                .then(data => {
-                    allQuizData = data.categories;
-                })
-                .catch(error => {
-                    console.error('Error fetching questions.json:', error);
-                });
-
-            // --- THE "PLAN B" FUNCTION: FETCH QUESTIONS FROM OUR AI API ---
+            // --- API CALL ---
             async function fetchAIQuestions(category) {
-                showView('loading'); // Show the new loading view
-                
+                showView('loading');
                 try {
                     const response = await fetch('/api/generate', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({
                             subject: "KTET Exam",
-                            topic: category, // Pass the clicked category to the AI
+                            topic: category,
                             count: 10
                         })
                     });
@@ -213,46 +205,27 @@
                     return data.questions;
                 } catch (error) {
                     console.error('Error fetching AI questions:', error);
-                    // If there's an error, go back home and alert the user
                     showView('home');
                     alert(`Failed to generate quiz: ${error.message}. Please check your connection and try again.`);
                     return [];
                 }
             }
 
-            // --- THE MAIN QUIZ LOGIC ---
+            // --- QUIZ LOGIC ---
             async function startQuiz(category) {
-                resultsView.classList.add('hidden');
-                quizContainer.classList.remove('hidden');
-                
-                let questions = [];
-                
-                // PLAN A: Check if questions for the category exist in the JSON file
-                if (allQuizData[category] && allQuizData[category].length > 0) {
-                    console.log(`Loading ${category} questions from JSON file.`);
-                    questions = allQuizData[category];
-                } 
-                // PLAN B: If not, call the AI to generate them
-                else {
-                    console.log(`No questions for ${category} in JSON. Calling AI.`);
-                    questions = await fetchAIQuestions(category);
-                }
+                const questions = await fetchAIQuestions(category);
 
-                // If AI fetch failed or returned no questions, stop here. The error is already handled.
                 if (questions.length === 0) {
-                    return;
+                    return; // Error already handled in fetchAIQuestions
                 }
 
-                // If we have questions, show the quiz view
                 showView('quiz');
                 quizData = questions;
                 currentQuiz = 0;
                 score = 0;
-                nextBtnQuiz.classList.remove('hidden');
                 loadQuiz();
             }
             
-            // The rest of the functions (loadQuiz, selectAnswer, showResults, etc.) are the same as before.
             function loadQuiz() {
                 if (currentQuiz >= quizData.length) {
                     showResults();
@@ -262,7 +235,7 @@
                 feedbackMessage.classList.add('hidden');
                 questionEl.innerText = currentQuizData.question;
                 optionsContainer.innerHTML = '';
-                optionsContainer.style.pointerEvents = 'auto';
+                
                 currentQuizData.options.forEach((optionText, index) => {
                     const optionEl = document.createElement('div');
                     optionEl.classList.add('quiz-option', 'p-4', 'border-2', 'rounded-lg', 'cursor-pointer', 'hover:bg-purple-50', 'transition-colors');
@@ -271,15 +244,18 @@
                     optionEl.addEventListener('click', () => selectAnswer(optionEl, currentQuizData));
                     optionsContainer.appendChild(optionEl);
                 });
+
                 updateProgress();
                 nextBtnQuiz.disabled = true;
             }
 
             function selectAnswer(selectedOptionEl, quizData) {
+                // Prevent re-selecting an answer
                 if (optionsContainer.querySelector('.correct, .incorrect')) return;
+
                 const selectedIndex = parseInt(selectedOptionEl.dataset.index, 10);
                 const correctIndex = quizData.correctIndex;
-                optionsContainer.style.pointerEvents = 'none';
+
                 if (selectedIndex === correctIndex) {
                     score++;
                     selectedOptionEl.classList.add('correct');
@@ -292,18 +268,19 @@
                     feedbackMessage.innerText = explanation;
                     feedbackMessage.classList.add('text-red-600');
                     feedbackMessage.classList.remove('text-green-600');
+                    
+                    // Highlight the correct answer
                     const correctOptionEl = optionsContainer.querySelector(`[data-index='${correctIndex}']`);
                     if (correctOptionEl) correctOptionEl.classList.add('correct');
                 }
+
                 feedbackMessage.classList.remove('hidden');
                 nextBtnQuiz.disabled = false;
             }
 
             function showResults() {
-                quizContainer.classList.add('hidden');
-                resultsView.classList.remove('hidden');
+                showView('results');
                 scoreText.innerText = `${score} / ${quizData.length}`;
-                reloadBtn.innerText = "Back to Home";
             }
             
             function handleNextQuestion() {
@@ -321,26 +298,57 @@
                 homeView.classList.add('hidden');
                 quizView.classList.add('hidden');
                 loadingView.classList.add('hidden');
+                resultsView.classList.add('hidden');
+
                 if (view === 'home') homeView.classList.remove('hidden');
                 else if (view === 'quiz') quizView.classList.remove('hidden');
                 else if (view === 'loading') loadingView.classList.remove('hidden');
+                else if (view === 'results') resultsView.classList.remove('hidden');
             }
 
-            // --- Event Listeners ---
+            // --- EVENT LISTENERS ---
             startQuizNavBtn.addEventListener('click', (e) => { 
                 e.preventDefault(); 
-                // Default category for the main button
                 startQuiz("Child Development & Pedagogy"); 
             });
+
             categoryStartBtns.forEach(btn => {
                 btn.addEventListener('click', () => {
                     const category = btn.dataset.category;
                     startQuiz(category);
                 });
             });
+
             nextBtnQuiz.addEventListener('click', handleNextQuestion);
-            reloadBtn.addEventListener('click', () => showView('home')); // Go home after quiz
+            reloadBtn.addEventListener('click', () => showView('home'));
             homeLink.addEventListener('click', (e) => { e.preventDefault(); showView('home'); });
+
+            // --- CAROUSEL LOGIC ---
+            const carouselItems = document.querySelectorAll('.carousel-item');
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtnCarousel = document.getElementById('next-btn-carousel');
+            let currentCarouselIndex = 0;
+
+            function showCarouselItem(index) {
+                carouselItems.forEach((item, i) => {
+                    item.style.opacity = i === index ? '1' : '0';
+                });
+            }
+
+            function nextCarouselItem() {
+                currentCarouselIndex = (currentCarouselIndex + 1) % carouselItems.length;
+                showCarouselItem(currentCarouselIndex);
+            }
+
+            prevBtn.addEventListener('click', () => {
+                currentCarouselIndex = (currentCarouselIndex - 1 + carouselItems.length) % carouselItems.length;
+                showCarouselItem(currentCarouselIndex);
+            });
+
+            nextBtnCarousel.addEventListener('click', nextCarouselItem);
+
+            // Auto-play carousel
+            setInterval(nextCarouselItem, 5000); // Change slide every 5 seconds
         });
     </script>
 </body>
