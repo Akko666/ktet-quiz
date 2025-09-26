@@ -214,6 +214,19 @@
 
             // --- QUIZ LOGIC ---
             async function startQuiz(category) {
+                // Prevent quiz generation for the syllabus category
+                if (category === 'KTET Syllabus') {
+                    console.log("Syllabus category clicked, preventing quiz start.");
+                    return;
+                }
+
+                // Defensive check to ensure a category is provided
+                if (!category) {
+                    console.error("startQuiz called without a category.");
+                    alert("Cannot start quiz: no category selected.");
+                    return;
+                }
+
                 const questions = await fetchAIQuestions(category);
 
                 if (questions.length === 0) {

@@ -26,6 +26,15 @@ export default async function handler(req, res) {
     // Log the incoming request for debugging purposes on Vercel.
     console.log(`Received request for topic: "${topic}"`);
 
+    // Add a check to prevent the API from processing the "KTET Syllabus" category
+    if (topic === 'KTET Syllabus') {
+        console.warn('Attempted to generate a quiz for the syllabus category. This is not supported.');
+        return res.status(400).json({
+            error: 'Quiz generation is not supported for the syllabus category.',
+            details: 'Please select a valid quiz topic.'
+        });
+    }
+
 
     // 2. --- CONSTRUCT THE AI PROMPT (Based on your "Power Prompt") ---
     // This prompt is very specific to ensure the AI returns clean JSON every time.
