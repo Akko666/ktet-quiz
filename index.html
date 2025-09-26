@@ -162,14 +162,18 @@
             const quizView = document.getElementById('quiz-view');
             const loadingView = document.getElementById('loading-view');
             const resultsView = document.getElementById('results-view');
-            
+            const errorDisplay = document.getElementById('error-display');
+            const loadingSpinner = document.getElementById('loading-spinner');
+            const errorDetails = document.getElementById('error-details');
+            const categoriesSection = document.getElementById('categories-section');
+
             // --- BUTTON & INTERACTIVE ELEMENTS ---
             const startQuizNavBtn = document.getElementById('start-quiz-nav');
-            const categoryStartBtns = document.querySelectorAll('.start-category-quiz');
+            const categoryStartBtns = document.querySelectorAll('button.start-category-quiz');
             const nextBtnQuiz = document.getElementById('next-btn-quiz');
             const reloadBtn = document.getElementById('reload-btn');
             const homeLink = document.getElementById('home-link');
-            const syllabusLink = document.getElementById('syllabus-link');
+            const backHomeBtn = document.getElementById('back-home-btn');
 
             // --- QUIZ CONTENT ELEMENTS ---
             const questionEl = document.getElementById('question');
@@ -179,10 +183,11 @@
             const feedbackMessage = document.getElementById('feedback-message');
             const scoreText = document.getElementById('score-text');
             
-            // --- QUIZ STATE ---
+            // --- STATE ---
             let quizData = [];
             let currentQuiz = 0;
             let score = 0;
+            let carouselInterval = null;
 
             // --- API CALL ---
             async function fetchAIQuestions(category) {
@@ -191,53 +196,39 @@
                     const response = await fetch('/api/generate', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
-                            subject: "KTET Exam",
-                            topic: category,
-                            count: 10
-                        })
+                        body: JSON.stringify({ subject: "KTET Exam", topic: category, count: 10 })
                     });
 
-                    if (!response.ok) {
-                        const errorInfo = await response.json();
-                        throw new Error(errorInfo.error || 'Failed to fetch questions from AI.');
-                    }
                     const data = await response.json();
+                    if (!response.ok) {
+                        // Use the error message from the API response if available
+                        throw new Error(data.error || 'Failed to fetch questions from AI.');
+                    }
                     return data.questions;
                 } catch (error) {
                     console.error('Error fetching AI questions:', error);
-                    showView('home');
-                    alert(`Failed to generate quiz: ${error.message}. Please check your connection and try again.`);
+                    showError(error.message);
                     return [];
                 }
             }
 
             // --- QUIZ LOGIC ---
             async function startQuiz(category) {
-                // Prevent quiz generation for the syllabus category
-                if (category === 'KTET Syllabus') {
-                    console.log("Syllabus category clicked, preventing quiz start.");
-                    return;
-                }
-
-                // Defensive check to ensure a category is provided
                 if (!category) {
                     console.error("startQuiz called without a category.");
-                    alert("Cannot start quiz: no category selected.");
+                    showError("Cannot start quiz: no category selected.");
                     return;
                 }
 
                 const questions = await fetchAIQuestions(category);
 
-                if (questions.length === 0) {
-                    return; // Error already handled in fetchAIQuestions
+                if (questions && questions.length > 0) {
+                    showView('quiz');
+                    quizData = questions;
+                    currentQuiz = 0;
+                    score = 0;
+                    loadQuiz();
                 }
-
-                showView('quiz');
-                quizData = questions;
-                currentQuiz = 0;
-                score = 0;
-                loadQuiz();
             }
             
             function loadQuiz() {
@@ -264,7 +255,6 @@
             }
 
             function selectAnswer(selectedOptionEl, quizData) {
-                // Prevent re-selecting an answer
                 if (optionsContainer.querySelector('.correct, .incorrect')) return;
 
                 const selectedIndex = parseInt(selectedOptionEl.dataset.index, 10);
@@ -283,7 +273,6 @@
                     feedbackMessage.classList.add('text-red-600');
                     feedbackMessage.classList.remove('text-green-600');
                     
-                    // Highlight the correct answer
                     const correctOptionEl = optionsContainer.querySelector(`[data-index='${correctIndex}']`);
                     if (correctOptionEl) correctOptionEl.classList.add('correct');
                 }
@@ -308,22 +297,47 @@
                 progressBar.style.width = `${progressPercentage}%`;
             }
 
+            // --- VIEW & STATE MANAGEMENT ---
+            function showError(message) {
+                showView('loading'); // Show the loading view container
+                loadingSpinner.classList.add('hidden'); // Hide the spinner
+                errorDisplay.classList.remove('hidden'); // Show the error block
+                errorDetails.textContent = message;
+            }
+
             function showView(view) {
+                // Stop carousel timer if we are leaving the home view
+                if (carouselInterval) {
+                    clearInterval(carouselInterval);
+                    carouselInterval = null;
+                }
+
                 homeView.classList.add('hidden');
                 quizView.classList.add('hidden');
                 loadingView.classList.add('hidden');
                 resultsView.classList.add('hidden');
 
-                if (view === 'home') homeView.classList.remove('hidden');
-                else if (view === 'quiz') quizView.classList.remove('hidden');
-                else if (view === 'loading') loadingView.classList.remove('hidden');
-                else if (view === 'results') resultsView.classList.remove('hidden');
+                // Reset loading view to default state
+                loadingSpinner.classList.remove('hidden');
+                errorDisplay.classList.add('hidden');
+
+                if (view === 'home') {
+                    homeView.classList.remove('hidden');
+                    // Start carousel timer only when showing the home view
+                    startCarousel();
+                } else if (view === 'quiz') {
+                    quizView.classList.remove('hidden');
+                } else if (view === 'loading') {
+                    loadingView.classList.remove('hidden');
+                } else if (view === 'results') {
+                    resultsView.classList.remove('hidden');
+                }
             }
 
             // --- EVENT LISTENERS ---
             startQuizNavBtn.addEventListener('click', (e) => { 
                 e.preventDefault(); 
-                startQuiz("Child Development & Pedagogy"); 
+                categoriesSection.scrollIntoView({ behavior: 'smooth' });
             });
 
             categoryStartBtns.forEach(btn => {
@@ -336,7 +350,7 @@
             nextBtnQuiz.addEventListener('click', handleNextQuestion);
             reloadBtn.addEventListener('click', () => showView('home'));
             homeLink.addEventListener('click', (e) => { e.preventDefault(); showView('home'); });
-            syllabusLink.addEventListener('click', (e) => { e.stopPropagation(); });
+            backHomeBtn.addEventListener('click', () => showView('home'));
 
             // --- CAROUSEL LOGIC ---
             const carouselItems = document.querySelectorAll('.carousel-item');
@@ -355,15 +369,24 @@
                 showCarouselItem(currentCarouselIndex);
             }
 
+            function startCarousel() {
+                if (carouselInterval) clearInterval(carouselInterval);
+                showCarouselItem(currentCarouselIndex);
+                carouselInterval = setInterval(nextCarouselItem, 5000);
+            }
+
             prevBtn.addEventListener('click', () => {
                 currentCarouselIndex = (currentCarouselIndex - 1 + carouselItems.length) % carouselItems.length;
-                showCarouselItem(currentCarouselIndex);
+                startCarousel();
             });
 
-            nextBtnCarousel.addEventListener('click', nextCarouselItem);
+            nextBtnCarousel.addEventListener('click', () => {
+                nextCarouselItem();
+                startCarousel();
+            });
 
-            // Auto-play carousel
-            setInterval(nextCarouselItem, 5000); // Change slide every 5 seconds
+            // Initial start
+            startCarousel();
         });
     </script>
 </body>
