@@ -30,7 +30,7 @@ export default async function handler(req, res) {
     if (topic === 'KTET Syllabus') {
         console.warn('Attempted to generate a quiz for the syllabus category. This is not supported.');
         return res.status(400).json({
-            error: 'Quiz generation is not supported for the syllabus category.',
+            error: 'Invalid Category: "KTET Syllabus" is not a quiz topic.',
             details: 'Please select a valid quiz topic.'
         });
     }

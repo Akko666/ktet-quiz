@@ -65,6 +65,13 @@ document.addEventListener('DOMContentLoaded', () => {
             showError("Cannot start quiz: no category selected.");
             return;
         }
+        
+        // Prevent API calls for non-quiz categories like the syllabus.
+        if (category === 'KTET Syllabus') {
+            console.warn('Attempted to start a quiz for the syllabus. This is not a quiz category.');
+            // This case should ideally not be reached, but this is a safeguard.
+            return; 
+        }
 
         const questions = await fetchAIQuestions(category);
 
