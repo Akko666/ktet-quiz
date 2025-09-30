@@ -1,5 +1,13 @@
 # Changelog
 
+### Recent Refinements & Fixes
+- **Build Process:** Migrated from Tailwind CDN to a proper `npm run build` process for production-ready CSS.
+- **API & Routing:** Overhauled `vercel.json` to fix 404 errors for the API, syllabus pages, and static assets during deployment.
+- **Code Organization:** Refactored all JavaScript from `index.html` into a separate `public/js/main.js` file.
+- **UI Consistency:** Restyled all syllabus-related pages to match the main application's header, footer, and design.
+- **Bug Fix:** Prevented the app from attempting to generate a quiz when a syllabus link is clicked.
+- **Development Workflow:** Established `npm start` (`vercel dev`) as the correct local development command.
+
 ### Syllabus Feature
 - Consolidated the syllabus display into a single "KTET Syllabus" card on the home page.
 - Created a new selection page (`pages/syllabus-selection.html`) for choosing between Category 1 and 2.

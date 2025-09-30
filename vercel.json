@@ -15,5 +15,13 @@
     { "source": "/pdf/(.*)", "destination": "/public/pdf/$1" },
     { "source": "/pages/(.*)", "destination": "/pages/$1" },
     { "source": "/api/(.*)", "destination": "/api/$1" }
+  ],
+  "headers": [
+    {
+      "source": "/(.*\\.(html))",
+      "headers": [
+        { "key": "Cache-Control", "value": "no-cache, no-store, must-revalidate" }
+      ]
+    }
   ]
 }
