@@ -217,11 +217,20 @@ document.addEventListener('DOMContentLoaded', () => {
         categoriesSection.scrollIntoView({ behavior: 'smooth' });
     });
 
-    categoryStartBtns.forEach(btn => {
-        btn.addEventListener('click', (e) => {
-            const category = btn.dataset.category;
-            startQuiz(category, e.currentTarget);
-        });
+    // A more robust way to handle clicks within the categories section using Event Delegation.
+    // This prevents clicks on non-button elements from accidentally triggering a quiz.
+    const categoriesContainer = document.getElementById('categories-section');
+    categoriesContainer.addEventListener('click', (e) => {
+        // We find the closest parent that is a quiz button.
+        const clickedButton = e.target.closest('button.start-category-quiz');
+
+        // If the click was not on a quiz button or inside one, do nothing.
+        if (!clickedButton) {
+            return;
+        }
+
+        const category = clickedButton.dataset.category;
+        startQuiz(category, clickedButton);
     });
 
     nextBtnQuiz.addEventListener('click', handleNextQuestion);
