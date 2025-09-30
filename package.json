@@ -4,7 +4,11 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "start": "echo 'No dedicated server for static site. Use `vercel dev` for local API.'",
-    "build": "echo 'Building static assets and API functions...'"
+    "start": "vercel dev",
+    "build": "tailwindcss -i ./public/css/input.css -o ./public/css/style.css --minify",
+    "deploy": "npm run build && vercel --prod"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.1"
   }
 }
