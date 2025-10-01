@@ -9,6 +9,6 @@
     "deploy": "npm run build && vercel --prod"
   },
   "devDependencies": {
-    "tailwindcss": "^3.4.1"
+    "tailwindcss": "^3.4.17"
   }
 }
