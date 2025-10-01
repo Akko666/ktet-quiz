@@ -3,30 +3,27 @@
 // This is a Vercel Serverless Function that acts as a secure backend.
 export default async function handler(req, res) {
     // 1. --- SECURITY AND INPUT VALIDATION ---
-    // We only accept POST requests.
     if (req.method !== 'POST') {
         return res.status(405).json({ error: 'Method Not Allowed. Please use POST.' });
     }
 
-    // Get the API key from Vercel's environment variables.
-    // It's crucial this is NOT exposed to the front-end.
     const OPENROUTER_API_KEY = process.env.OPENROUTER_API_KEY;
-
     if (!OPENROUTER_API_KEY) {
-        console.error('OPENROUTER_API_KEY is not configured on the server.');
-        return res.status(500).json({ error: 'API credentials are not configured on the server.' });
+        console.error('CRITICAL: OPENROUTER_API_KEY environment variable is not set.');
+        return res.status(500).json({ 
+            error: 'API Key Not Configured',
+            details: 'The server is missing the required OPENROUTER_API_KEY. Please ensure this environment variable is set in your Vercel project settings.'
+        });
     }
 
-    // Allow the model to be configured via environment variables, with a fallback to the free Mistral model.
-    // You can now set `OPENROUTER_MODEL` in Vercel to "gemma-7b-it:free", "google/gemini-pro", etc.
+    // Allow the model to be configured via environment variables.
+    // Note: Free models can be slower and less reliable. If you face persistent timeout or format errors,
+    // consider upgrading to a paid model on OpenRouter (e.g., "google/gemini-pro", "anthropic/claude-3-haiku").
     const AI_MODEL = process.env.OPENROUTER_MODEL || "mistralai/mistral-7b-instruct:free";
 
     const { topic = 'General Knowledge', count = 10, subject = 'KTET Exam' } = req.body;
+    console.log(`Received request for topic: "${topic}" using model: ${AI_MODEL}`);
 
-    // Log the incoming request for debugging purposes on Vercel.
-    console.log(`Received request for topic: "${topic}"`);
-
-    // Add a check to prevent the API from processing the "KTET Syllabus" category
     if (topic === 'KTET Syllabus') {
         console.warn('Attempted to generate a quiz for the syllabus category. This is not supported.');
         return res.status(400).json({
@@ -35,9 +32,7 @@ export default async function handler(req, res) {
         });
     }
 
-
-    // 2. --- CONSTRUCT THE AI PROMPT (Based on your "Power Prompt") ---
-    // This prompt is very specific to ensure the AI returns clean JSON every time.
+    // 2. --- CONSTRUCT THE AI PROMPT ---
     const prompt = `
       You are an expert question generator for the Kerala Teacher Eligibility Test (KTET).
       Your task is to generate exactly ${count} multiple-choice questions.
@@ -52,10 +47,14 @@ export default async function handler(req, res) {
       Now, generate the questions for the topic: <topic>${topic}</topic>.
     `;
 
-    // 3. --- CALL THE OPENROUTER AI API ---
+    // 3. --- CALL THE OPENROUTER AI API WITH TIMEOUT ---
     try {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 9000); // 9-second timeout
+
         const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
             method: "POST",
+            signal: controller.signal, // Attach the abort signal
             headers: {
                 "Authorization": `Bearer ${OPENROUTER_API_KEY}`,
                 "Content-Type": "application/json"
@@ -69,7 +68,8 @@ export default async function handler(req, res) {
             })
         });
 
-        // Check for errors from the AI service itself.
+        clearTimeout(timeoutId);
+
         if (!response.ok) {
             const errorText = await response.text();
             console.error(`OpenRouter API Error (using model ${AI_MODEL}):`, errorText);
@@ -83,14 +83,13 @@ export default async function handler(req, res) {
         const jsonString = aiData.choices[0].message.content;
 
         // 4. --- PARSE AND RESPOND ---
-        // Attempt to parse the AI's response as JSON.
         try {
             const questionsJson = JSON.parse(jsonString);
             console.log(`Successfully generated and parsed ${questionsJson.questions.length} questions for topic "${topic}".`);
             return res.status(200).json(questionsJson);
         } catch (parseError) {
             console.error('Failed to parse JSON from AI response:', parseError);
-            console.error('Raw AI Response was:', jsonString); // Log the bad response for debugging
+            console.error('Raw AI Response was:', jsonString);
             return res.status(500).json({
                 error: 'The AI returned an invalid format. Could not parse the questions.',
                 details: jsonString
@@ -98,6 +97,13 @@ export default async function handler(req, res) {
         }
 
     } catch (error) {
+        if (error.name === 'AbortError') {
+            console.error('API request timed out after 9 seconds.');
+            return res.status(504).json({
+                error: 'Gateway Timeout',
+                details: 'The request to the AI service took too long to respond. This might be due to a slow model or high traffic. Try again later or consider using a faster model.'
+            });
+        }
         console.error('Failed to fetch from OpenRouter API:', error);
         return res.status(500).json({
             error: 'An unexpected error occurred while contacting the AI service.',
