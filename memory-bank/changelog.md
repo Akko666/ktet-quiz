@@ -8,6 +8,10 @@
 - **Bug Fix:** Prevented the app from attempting to generate a quiz when a syllabus link is clicked.
 - **Development Workflow:** Established `npm start` (`vercel dev`) as the correct local development command.
 
+### Pre-loaded Questions
+- **Data:** Added ~95 pre-written questions for the "Child Development & Pedagogy" category into `data/questions.json`.
+- **Logic:** Updated `public/main.js` to implement a hybrid question-loading strategy. The app now first attempts to load questions from the local `questions.json`. If no questions are found for the selected category, it falls back to the AI generation API.
+
 ### Syllabus Feature
 - Consolidated the syllabus display into a single "KTET Syllabus" card on the home page.
 - Created a new selection page (`pages/syllabus-selection.html`) for choosing between Category 1 and 2.

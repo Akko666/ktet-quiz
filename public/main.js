@@ -30,7 +30,21 @@ document.addEventListener('DOMContentLoaded', () => {
     let score = 0;
     let carouselInterval = null;
 
-    // --- API CALL ---
+    // --- DATA FETCHING ---
+    async function getLocalQuestions() {
+        try {
+            const response = await fetch('/data/questions.json');
+            if (!response.ok) {
+                console.warn('Could not fetch local questions.json:', response.status);
+                return null;
+            }
+            return await response.json();
+        } catch (error) {
+            console.error('Error reading local questions.json:', error);
+            return null;
+        }
+    }
+
     async function fetchAIQuestions(category) {
         showView('loading');
         try {
@@ -42,7 +56,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const data = await response.json();
             if (!response.ok) {
-                // Use the error message from the API response if available, otherwise use a generic one.
                 const errorMsg = data.error || `Request failed with status ${response.status}`;
                 const errorDetailsText = data.details ? `Details: ${data.details}` : 'No additional details provided.';
                 throw new Error(`${errorMsg}. ${errorDetailsText}`);
@@ -50,7 +63,6 @@ document.addEventListener('DOMContentLoaded', () => {
             return data.questions;
         } catch (error) {
             console.error('Error fetching AI questions:', error);
-            // Check if the error is a SyntaxError, which often means the server sent HTML (like a 404 page) instead of JSON
             const isJsonError = error instanceof SyntaxError;
             const displayMessage = isJsonError ? "The server returned an unexpected response. This can happen if the API endpoint is not found (404)." : error.message;
             showError(displayMessage);
@@ -66,17 +78,13 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
         
-        // Prevent API calls for non-quiz categories like the syllabus.
         if (category === 'KTET Syllabus') {
             console.warn('Attempted to start a quiz for the syllabus. This is not a quiz category.');
-            // This case should ideally not be reached, but this is a safeguard.
             return; 
         }
 
         // --- UI Loading State ---
         const originalButtonContent = clickedButton.innerHTML;
-        
-        // Disable all buttons and show loading on the clicked one
         document.querySelectorAll('.start-category-quiz, #syllabus-link').forEach(el => {
             el.disabled = true;
             el.classList.add('cursor-not-allowed', 'opacity-75');
@@ -90,7 +98,14 @@ document.addEventListener('DOMContentLoaded', () => {
             <span>Generating...</span>
         `;
 
-        const questions = await fetchAIQuestions(category);
+        let questions = [];
+        const localQuestionsData = await getLocalQuestions();
+
+        if (localQuestionsData && localQuestionsData.categories[category] && localQuestionsData.categories[category].length > 0) {
+            questions = localQuestionsData.categories[category];
+        } else {
+            questions = await fetchAIQuestions(category);
+        }
 
         // --- Restore UI State ---
         document.querySelectorAll('.start-category-quiz, #syllabus-link').forEach(el => {
@@ -176,14 +191,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- VIEW & STATE MANAGEMENT ---
     function showError(message) {
-        showView('loading'); // Show the loading view container
-        loadingSpinner.classList.add('hidden'); // Hide the spinner
-        errorDisplay.classList.remove('hidden'); // Show the error block
+        showView('loading');
+        loadingSpinner.classList.add('hidden');
+        errorDisplay.classList.remove('hidden');
         errorDetails.textContent = message;
     }
 
     function showView(view) {
-        // Stop carousel timer if we are leaving the home view
         if (carouselInterval) {
             clearInterval(carouselInterval);
             carouselInterval = null;
@@ -194,13 +208,11 @@ document.addEventListener('DOMContentLoaded', () => {
         loadingView.classList.add('hidden');
         resultsView.classList.add('hidden');
 
-        // Reset loading view to default state
         loadingSpinner.classList.remove('hidden');
         errorDisplay.classList.add('hidden');
 
         if (view === 'home') {
             homeView.classList.remove('hidden');
-            // Start carousel timer only when showing the home view
             startCarousel();
         } else if (view === 'quiz') {
             quizView.classList.remove('hidden');
@@ -218,31 +230,22 @@ document.addEventListener('DOMContentLoaded', () => {
         categoriesSection.scrollIntoView({ behavior: 'smooth' });
     });
 
-    // --- BUG FIX: Updated Event Listener ---
-    // This listener is now more specific to prevent misfiring on the syllabus link.
     const categoriesContainer = document.getElementById('categories-section');
     categoriesContainer.addEventListener('click', (e) => {
-        
-        // First, specifically check if the click is on the syllabus link or anything inside it.
-        // If it is, we do nothing and let the browser handle the navigation.
         if (e.target.closest('#syllabus-link')) {
             return;
         }
 
-        // Next, find the closest parent that is a quiz button.
         const clickedButton = e.target.closest('button.start-category-quiz');
 
-        // If the click was not on a quiz button, do nothing.
         if (!clickedButton) {
             return;
         }
         
-        // If we found a quiz button, prevent any default browser action and start the quiz.
         e.preventDefault();
         const category = clickedButton.dataset.category;
         startQuiz(category, clickedButton);
     });
-
 
     nextBtnQuiz.addEventListener('click', handleNextQuestion);
     reloadBtn.addEventListener('click', () => showView('home'));
