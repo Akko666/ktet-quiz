@@ -5,24 +5,11 @@
     {
       "src": "package.json",
       "use": "@vercel/static-build",
-      "config": { "distDir": "." }
+      "config": { "distDir": "public" }
     },
     { "src": "api/**/*.js", "use": "@vercel/node" }
   ],
   "rewrites": [
-    { "source": "/", "destination": "/index.html" },
-    { "source": "/css/(.*)", "destination": "/public/css/$1" },
-    { "source": "/js/main.js", "destination": "/main.js" },
-    { "source": "/pdf/(.*)", "destination": "/public/pdf/$1" },
-    { "source": "/pages/(.*)", "destination": "/pages/$1" },
     { "source": "/api/(.*)", "destination": "/api/$1" }
-  ],
-  "headers": [
-    {
-      "source": "/(.*\\.(html))",
-      "headers": [
-        { "key": "Cache-control", "value": "no-cache, no-store, must-revalidate" }
-      ]
-    }
   ]
 }
