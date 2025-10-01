@@ -1,5 +1,6 @@
 {
   "version": 2,
+  "framework": null,
   "builds": [
     {
       "src": "package.json",
@@ -11,16 +12,16 @@
   "rewrites": [
     { "source": "/", "destination": "/index.html" },
     { "source": "/css/(.*)", "destination": "/public/css/$1" },
-    { "source": "/js/(.*)", "destination": "/public/js/$1" },
+    { "source": "/js/main.js", "destination": "/main.js" },
     { "source": "/pdf/(.*)", "destination": "/public/pdf/$1" },
-    { "source": "/pages/(.*)", "destination": "/public/pages/$1" },
+    { "source": "/pages/(.*)", "destination": "/pages/$1" },
     { "source": "/api/(.*)", "destination": "/api/$1" }
   ],
   "headers": [
     {
       "source": "/(.*\\.(html))",
       "headers": [
-        { "key": "Cache-Control", "value": "no-cache, no-store, must-revalidate" }
+        { "key": "Cache-control", "value": "no-cache, no-store, must-revalidate" }
       ]
     }
   ]

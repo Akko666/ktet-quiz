@@ -44,8 +44,8 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!response.ok) {
                 // Use the error message from the API response if available, otherwise use a generic one.
                 const errorMsg = data.error || `Request failed with status ${response.status}`;
-                const errorDetails = data.details ? `Details: ${data.details}` : 'No additional details provided.';
-                throw new Error(`${errorMsg}. ${errorDetails}`);
+                const errorDetailsText = data.details ? `Details: ${data.details}` : 'No additional details provided.';
+                throw new Error(`${errorMsg}. ${errorDetailsText}`);
             }
             return data.questions;
         } catch (error) {
@@ -77,10 +77,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const originalButtonContent = clickedButton.innerHTML;
         
         // Disable all buttons and show loading on the clicked one
-        categoryStartBtns.forEach(btn => {
-            btn.disabled = true;
-            btn.classList.add('cursor-not-allowed', 'opacity-75');
+        document.querySelectorAll('.start-category-quiz, #syllabus-link').forEach(el => {
+            el.disabled = true;
+            el.classList.add('cursor-not-allowed', 'opacity-75');
         });
+        
         clickedButton.innerHTML = `
             <svg class="animate-spin h-5 w-5 inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
               <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
@@ -92,9 +93,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const questions = await fetchAIQuestions(category);
 
         // --- Restore UI State ---
-        categoryStartBtns.forEach(btn => {
-            btn.disabled = false;
-            btn.classList.remove('cursor-not-allowed', 'opacity-75');
+        document.querySelectorAll('.start-category-quiz, #syllabus-link').forEach(el => {
+            el.disabled = false;
+            el.classList.remove('cursor-not-allowed', 'opacity-75');
         });
         clickedButton.innerHTML = originalButtonContent;
 
@@ -217,21 +218,31 @@ document.addEventListener('DOMContentLoaded', () => {
         categoriesSection.scrollIntoView({ behavior: 'smooth' });
     });
 
-    // A more robust way to handle clicks within the categories section using Event Delegation.
-    // This prevents clicks on non-button elements from accidentally triggering a quiz.
+    // --- BUG FIX: Updated Event Listener ---
+    // This listener is now more specific to prevent misfiring on the syllabus link.
     const categoriesContainer = document.getElementById('categories-section');
     categoriesContainer.addEventListener('click', (e) => {
-        // We find the closest parent that is a quiz button.
-        const clickedButton = e.target.closest('button.start-category-quiz');
-
-        // If the click was not on a quiz button or inside one, do nothing.
-        if (!clickedButton) {
+        
+        // First, specifically check if the click is on the syllabus link or anything inside it.
+        // If it is, we do nothing and let the browser handle the navigation.
+        if (e.target.closest('#syllabus-link')) {
             return;
         }
 
+        // Next, find the closest parent that is a quiz button.
+        const clickedButton = e.target.closest('button.start-category-quiz');
+
+        // If the click was not on a quiz button, do nothing.
+        if (!clickedButton) {
+            return;
+        }
+        
+        // If we found a quiz button, prevent any default browser action and start the quiz.
+        e.preventDefault();
         const category = clickedButton.dataset.category;
         startQuiz(category, clickedButton);
     });
+
 
     nextBtnQuiz.addEventListener('click', handleNextQuestion);
     reloadBtn.addEventListener('click', () => showView('home'));
