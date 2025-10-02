@@ -80,6 +80,15 @@ export default async function handler(req, res) {
         }
 
         const aiData = await response.json();
+
+        if (!aiData.choices || aiData.choices.length === 0 || !aiData.choices[0].message || !aiData.choices[0].message.content) {
+            console.error('Invalid response structure from AI:', aiData);
+            return res.status(500).json({
+                error: 'The AI returned an unexpected response structure.',
+                details: 'The response from the AI service was missing the expected content.'
+            });
+        }
+
         const jsonString = aiData.choices[0].message.content;
 
         // 4. --- PARSE AND RESPOND ---

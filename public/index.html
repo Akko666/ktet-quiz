@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KTET Quiz Hub - Modern Learning Platform</title>
     <link href="/css/style.css" rel="stylesheet">
+    <link href="/css/animations.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         body {
@@ -146,13 +147,30 @@
             </div>
         </div>
         
-        <div id="results-view" class="hidden text-center max-w-3xl mx-auto bg-white p-8 rounded-2xl shadow-xl border border-gray-200 mt-12">
-            <h2 class="text-4xl font-extrabold text-gray-900 mb-4">Quiz Complete!</h2>
-            <p class="text-2xl text-gray-700 mb-2">Your Score:</p>
-            <p id="score-text" class="text-6xl font-bold text-purple-600 mb-8">0 / 0</p>
-            <button id="reload-btn" class="bg-purple-600 text-white font-bold px-8 py-4 rounded-lg text-lg hover:bg-purple-700 transition-transform transform hover:scale-105">
-                Try Again
-            </button>
+        <div id="results-view" class="hidden text-center max-w-3xl mx-auto mt-12">
+            <div class="bg-white p-8 rounded-2xl shadow-xl border border-gray-200">
+                <h2 class="text-4xl font-extrabold text-gray-900 mb-2">Quiz Complete!</h2>
+                <p class="text-lg text-gray-600 mb-6">Here's how you did:</p>
+                
+                <div id="score-card" class="relative w-48 h-48 mx-auto mb-8 flex items-center justify-center">
+                    <svg class="w-full h-full" viewBox="0 0 100 100">
+                        <circle class="text-gray-200" stroke-width="10" stroke="currentColor" fill="transparent" r="45" cx="50" cy="50"/>
+                        <circle id="score-ring" class="text-purple-600" stroke-width="10" stroke-linecap="round" stroke="currentColor" fill="transparent" r="45" cx="50" cy="50" style="transform: rotate(-90deg); transform-origin: 50% 50%; transition: stroke-dashoffset 1.5s ease-out;"/>
+                    </svg>
+                    <div id="score-percentage" class="absolute text-4xl font-bold text-purple-700">0%</div>
+                </div>
+
+                <p id="score-details" class="text-2xl font-medium text-gray-800 mb-8">You scored 0 out of 0</p>
+                
+                <div class="flex justify-center items-center space-x-4">
+                    <button id="next-batch-btn" class="bg-green-600 text-white font-bold px-8 py-4 rounded-lg text-lg hover:bg-green-700 transition-all transform hover:scale-105">
+                        Next Batch
+                    </button>
+                    <button id="reload-btn" class="bg-purple-600 text-white font-bold px-8 py-4 rounded-lg text-lg hover:bg-purple-700 transition-all transform hover:scale-105 opacity-0" style="transition-delay: 1.5s;">
+                        Try Again
+                    </button>
+                </div>
+            </div>
         </div>
 
     </main>
