@@ -128,9 +128,11 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             const response = await fetch('/data/questions.json');
             if (!response.ok) throw new Error('Failed to load question data.');
-            const data = await response.json();
-            const categoryData = data.categories.find(c => c.name === category);
-
+                    const data = await response.json();
+                    console.log('Fetched data:', data);
+                    console.log('Type of data:', typeof data);
+                    console.log('Type of data.categories:', typeof data.categories);
+                    const categoryData = data.categories.find(c => c.name === category);
             if (categoryData && categoryData.questions.length > 0) {
                 console.log(`Found ${categoryData.questions.length} preset questions.`);
                 isPreset = true;
