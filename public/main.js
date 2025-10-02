@@ -1,290 +1,275 @@
+
 document.addEventListener('DOMContentLoaded', () => {
     // --- VIEW ELEMENTS ---
+    const mainContent = document.getElementById('main-content');
     const homeView = document.getElementById('home-view');
     const quizView = document.getElementById('quiz-view');
     const loadingView = document.getElementById('loading-view');
     const resultsView = document.getElementById('results-view');
 
-    // --- BUTTON & INTERACTIVE ELEMENTS ---
-    const startQuizNavBtn = document.getElementById('start-quiz-nav');
-    const categoryStartBtns = document.querySelectorAll('button.start-category-quiz');
-    const nextBtnQuiz = document.getElementById('next-btn-quiz');
-    const reloadBtn = document.getElementById('reload-btn');
-    const homeLink = document.getElementById('home-link');
-    const errorDisplay = document.getElementById('error-display');
-    const loadingSpinner = document.getElementById('loading-spinner');
-    const errorDetails = document.getElementById('error-details');
-    const backHomeBtn = document.getElementById('back-home-btn');
-
-    // --- QUIZ CONTENT ELEMENTS ---
-    const questionEl = document.getElementById('question');
+    // --- UI ELEMENTS ---
+    const categoryButtons = document.querySelectorAll('.start-category-quiz');
+    const questionContainer = document.getElementById('question');
     const optionsContainer = document.getElementById('options-container');
+    const feedbackMessage = document.getElementById('feedback-message');
+    const nextBtnQuiz = document.getElementById('next-btn-quiz');
     const progressText = document.getElementById('progress-text');
     const progressBar = document.getElementById('progress-bar');
-    const feedbackMessage = document.getElementById('feedback-message');
     const scoreText = document.getElementById('score-text');
-    
-    // --- STATE ---
-    let quizData = [];
-    let currentQuiz = 0;
-    let score = 0;
-    let carouselInterval = null;
+    const reloadBtn = document.getElementById('reload-btn');
+    const homeLink = document.getElementById('home-link');
+    const startQuizNav = document.getElementById('start-quiz-nav');
+    const backHomeBtn = document.getElementById('back-home-btn');
+    const errorDisplay = document.getElementById('error-display');
+    const errorDetails = document.getElementById('error-details');
 
-    // --- DATA FETCHING ---
-    async function getLocalQuestions() {
-        try {
-            const response = await fetch('/data/questions.json');
-            if (!response.ok) {
-                console.warn('Could not fetch local questions.json:', response.status);
-                return null;
-            }
-            return await response.json();
-        } catch (error) {
-            console.error('Error reading local questions.json:', error);
-            return null;
+    // --- QUIZ STATE ---
+    let questions = [];
+    let currentQuestionIndex = 0;
+    let score = 0;
+    let currentCategory = '';
+    let isPreset = false; // Flag to track if questions are from the preset JSON
+
+    // --- INITIALIZATION ---
+    showView('home');
+    setupCarousel();
+
+    // --- EVENT LISTENERS ---
+    categoryButtons.forEach(button => {
+        button.addEventListener('click', (e) => {
+            const category = e.currentTarget.dataset.category;
+            selectCategory(category);
+        });
+    });
+
+    nextBtnQuiz.addEventListener('click', handleNextQuestion);
+    reloadBtn.addEventListener('click', () => location.reload());
+    homeLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        showView('home');
+    });
+    startQuizNav.addEventListener('click', (e) => {
+        e.preventDefault();
+        document.getElementById('categories-section').scrollIntoView({ behavior: 'smooth' });
+    });
+    backHomeBtn.addEventListener('click', () => showView('home'));
+
+    // --- VIEW MANAGEMENT ---
+    function showView(viewName) {
+        homeView.classList.add('hidden');
+        quizView.classList.add('hidden');
+        loadingView.classList.add('hidden');
+        resultsView.classList.add('hidden');
+        errorDisplay.classList.add('hidden');
+
+        switch (viewName) {
+            case 'home':
+                homeView.classList.remove('hidden');
+                break;
+            case 'quiz':
+                quizView.classList.remove('hidden');
+                break;
+            case 'loading':
+                loadingView.classList.remove('hidden');
+                break;
+            case 'results':
+                resultsView.classList.remove('hidden');
+                break;
+            case 'error':
+                loadingView.classList.remove('hidden');
+                errorDisplay.classList.remove('hidden');
+                document.getElementById('loading-spinner').classList.add('hidden');
+                break;
         }
     }
 
-    async function fetchAIQuestions(category) {
+    // --- CATEGORY AND QUESTION FETCHING ---
+    function selectCategory(category) {
+        currentCategory = category;
+        score = 0;
+        currentQuestionIndex = 0;
+        questions = [];
+        console.log(`Category selected: ${category}`);
+        fetchPresetQuestions(category);
+    }
+
+    async function fetchPresetQuestions(category) {
         showView('loading');
+        try {
+            const response = await fetch('/data/questions.json');
+            if (!response.ok) throw new Error('Failed to load question data.');
+            const data = await response.json();
+            const categoryData = data.categories.find(c => c.name === category);
+
+            if (categoryData && categoryData.questions.length > 0) {
+                console.log(`Found ${categoryData.questions.length} preset questions.`);
+                isPreset = true;
+                questions = categoryData.questions;
+                startQuiz();
+            } else {
+                console.log('No preset questions found. Generating from AI.');
+                isPreset = false;
+                generateAIQuestions(category);
+            }
+        } catch (error) {
+            console.error('Error fetching preset questions:', error);
+            showError('Could not load initial quiz data. Please check your connection and try again.');
+        }
+    }
+
+    async function generateAIQuestions(topic) {
+        showView('loading');
+        console.log(`Generating AI questions for topic: ${topic}`);
         try {
             const response = await fetch('/api/generate', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ subject: "KTET Exam", topic: category, count: 10 })
+                body: JSON.stringify({ topic: topic, count: 10 }) // Fetch a batch of 10
             });
 
-            const data = await response.json();
             if (!response.ok) {
-                const errorMsg = data.error || `Request failed with status ${response.status}`;
-                const errorDetailsText = data.details ? `Details: ${data.details}` : 'No additional details provided.';
-                throw new Error(`${errorMsg}. ${errorDetailsText}`);
+                const errorData = await response.json();
+                throw new Error(errorData.details || `API Error: ${response.statusText}`);
             }
-            return data.questions;
+
+            const data = await response.json();
+            questions = data.questions;
+            console.log(`Successfully generated ${questions.length} AI questions.`);
+            startQuiz();
+
         } catch (error) {
-            console.error('Error fetching AI questions:', error);
-            const isJsonError = error instanceof SyntaxError;
-            const displayMessage = isJsonError ? "The server returned an unexpected response. This can happen if the API endpoint is not found (404)." : error.message;
-            showError(displayMessage);
-            return [];
-        }
-    }
-
-    // --- QUIZ LOGIC ---
-    async function startQuiz(category, clickedButton) {
-        if (!category) {
-            console.error("startQuiz called without a category.");
-            showError("Cannot start quiz: no category selected.");
-            return;
-        }
-        
-        if (category === 'KTET Syllabus') {
-            console.warn('Attempted to start a quiz for the syllabus. This is not a quiz category.');
-            return; 
-        }
-
-        // --- UI Loading State ---
-        const originalButtonContent = clickedButton.innerHTML;
-        document.querySelectorAll('.start-category-quiz, #syllabus-link').forEach(el => {
-            el.disabled = true;
-            el.classList.add('cursor-not-allowed', 'opacity-75');
-        });
-        
-        clickedButton.innerHTML = `
-            <svg class="animate-spin h-5 w-5 inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-            </svg>
-            <span>Generating...</span>
-        `;
-
-        let questions = [];
-        const localQuestionsData = await getLocalQuestions();
-
-        if (localQuestionsData && localQuestionsData.categories[category] && localQuestionsData.categories[category].length > 0) {
-            questions = localQuestionsData.categories[category];
-        } else {
-            questions = await fetchAIQuestions(category);
-        }
-
-        // --- Restore UI State ---
-        document.querySelectorAll('.start-category-quiz, #syllabus-link').forEach(el => {
-            el.disabled = false;
-            el.classList.remove('cursor-not-allowed', 'opacity-75');
-        });
-        clickedButton.innerHTML = originalButtonContent;
-
-        if (questions && questions.length > 0) {
-            quizData = questions;
-            currentQuiz = 0;
-            score = 0;
-            showView('quiz');
-            loadQuiz();
+            console.error('Error generating AI questions:', error);
+            showError(error.message);
         }
     }
     
-    function loadQuiz() {
-        if (currentQuiz >= quizData.length) {
-            showResults();
+    function startQuiz() {
+        if (!questions || questions.length === 0) {
+            showError("No questions were found for this category. Please try another one.");
             return;
         }
-        const currentQuizData = quizData[currentQuiz];
-        feedbackMessage.classList.add('hidden');
-        questionEl.innerText = currentQuizData.question;
+        currentQuestionIndex = 0;
+        score = 0;
+        showView('quiz');
+        displayQuestion();
+    }
+
+    // --- QUIZ LOGIC ---
+    function displayQuestion() {
+        if (currentQuestionIndex >= questions.length) {
+            console.warn("displayQuestion called with invalid index. This shouldn't happen.");
+            return;
+        }
+
+        const question = questions[currentQuestionIndex];
+        questionContainer.textContent = question.question;
         optionsContainer.innerHTML = '';
         
-        currentQuizData.options.forEach((optionText, index) => {
-            const optionEl = document.createElement('div');
-            optionEl.classList.add('quiz-option', 'p-4', 'border-2', 'rounded-lg', 'cursor-pointer', 'hover:bg-purple-50', 'transition-colors');
-            optionEl.dataset.index = index;
-            optionEl.innerHTML = `<span class="font-semibold mr-2">${String.fromCharCode(65 + index)}.</span> ${optionText}`;
-            optionEl.addEventListener('click', () => selectAnswer(optionEl, currentQuizData));
-            optionsContainer.appendChild(optionEl);
+        question.options.forEach((option, index) => {
+            const li = document.createElement('li');
+            li.textContent = option;
+            li.classList.add('quiz-option', 'p-4', 'border-2', 'rounded-lg', 'cursor-pointer', 'hover:bg-purple-100', 'transition-colors');
+            li.dataset.index = index;
+            li.addEventListener('click', handleOptionClick);
+            optionsContainer.appendChild(li);
         });
 
         updateProgress();
         nextBtnQuiz.disabled = true;
+        feedbackMessage.classList.add('hidden');
     }
 
-    function selectAnswer(selectedOptionEl, quizData) {
-        if (optionsContainer.querySelector('.correct, .incorrect')) return;
+    function handleOptionClick(e) {
+        const selectedOption = e.currentTarget;
+        const selectedAnswerIndex = parseInt(selectedOption.dataset.index);
+        const question = questions[currentQuestionIndex];
+        const correctAnswerIndex = question.correctIndex;
 
-        const selectedIndex = parseInt(selectedOptionEl.dataset.index, 10);
-        const correctIndex = quizData.correctIndex;
+        // Disable all options after one is clicked
+        Array.from(optionsContainer.children).forEach(child => {
+            child.removeEventListener('click', handleOptionClick);
+            child.classList.add('cursor-not-allowed');
+        });
 
-        if (selectedIndex === correctIndex) {
+        // Mark selected option
+        selectedOption.classList.add('selected');
+
+        // Check if correct and apply styles
+        if (selectedAnswerIndex === correctAnswerIndex) {
             score++;
-            selectedOptionEl.classList.add('correct');
-            feedbackMessage.innerText = "Correct!";
-            feedbackMessage.classList.add('text-green-600');
-            feedbackMessage.classList.remove('text-red-600');
+            selectedOption.classList.add('correct');
+            feedbackMessage.textContent = "Correct! " + question.explanation;
+            feedbackMessage.className = 'mt-4 text-center font-semibold text-green-700';
         } else {
-            selectedOptionEl.classList.add('incorrect');
-            const explanation = quizData.explanation || "Sorry, that's not correct.";
-            feedbackMessage.innerText = explanation;
-            feedbackMessage.classList.add('text-red-600');
-            feedbackMessage.classList.remove('text-green-600');
-            
-            const correctOptionEl = optionsContainer.querySelector(`[data-index='${correctIndex}']`);
-            if (correctOptionEl) correctOptionEl.classList.add('correct');
+            selectedOption.classList.add('incorrect');
+            optionsContainer.children[correctAnswerIndex].classList.add('correct');
+            feedbackMessage.textContent = "Incorrect. " + question.explanation;
+            feedbackMessage.className = 'mt-4 text-center font-semibold text-red-700';
         }
 
         feedbackMessage.classList.remove('hidden');
         nextBtnQuiz.disabled = false;
     }
 
+    function handleNextQuestion() {
+        currentQuestionIndex++;
+        if (currentQuestionIndex < questions.length) {
+            displayQuestion();
+        } else {
+            // End of the current batch of questions
+            if (isPreset) {
+                console.log("Finished preset questions. Fetching AI questions now.");
+                isPreset = false; // Important: switch mode
+                generateAIQuestions(currentCategory); // Fetch a new batch
+            } else {
+                console.log("Finished AI questions. Showing results.");
+                showResults();
+            }
+        }
+    }
+
     function showResults() {
         showView('results');
-        scoreText.innerText = `${score} / ${quizData.length}`;
-    }
-    
-    function handleNextQuestion() {
-        currentQuiz++;
-        loadQuiz();
+        scoreText.textContent = `${score} / ${questions.length}`;
     }
 
     function updateProgress() {
-        progressText.innerText = `Question ${currentQuiz + 1} of ${quizData.length}`;
-        const progressPercentage = ((currentQuiz + 1) / quizData.length) * 100;
+        progressText.textContent = `Question ${currentQuestionIndex + 1} of ${questions.length}`;
+        const progressPercentage = ((currentQuestionIndex + 1) / questions.length) * 100;
         progressBar.style.width = `${progressPercentage}%`;
     }
-
-    // --- VIEW & STATE MANAGEMENT ---
+    
     function showError(message) {
-        showView('loading');
-        loadingSpinner.classList.add('hidden');
-        errorDisplay.classList.remove('hidden');
+        showView('error');
         errorDetails.textContent = message;
     }
 
-    function showView(view) {
-        if (carouselInterval) {
-            clearInterval(carouselInterval);
-            carouselInterval = null;
+    // --- HOME PAGE CAROUSEL ---
+    function setupCarousel() {
+        const carouselItems = document.querySelectorAll('.carousel-item');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtnCarousel = document.getElementById('next-btn-carousel');
+        let currentSlide = 0;
+
+        function showSlide(index) {
+            carouselItems.forEach((item, i) => {
+                item.style.opacity = i === index ? '1' : '0';
+            });
         }
 
-        homeView.classList.add('hidden');
-        quizView.classList.add('hidden');
-        loadingView.classList.add('hidden');
-        resultsView.classList.add('hidden');
-
-        loadingSpinner.classList.remove('hidden');
-        errorDisplay.classList.add('hidden');
-
-        if (view === 'home') {
-            homeView.classList.remove('hidden');
-            startCarousel();
-        } else if (view === 'quiz') {
-            quizView.classList.remove('hidden');
-        } else if (view === 'loading') {
-            loadingView.classList.remove('hidden');
-        } else if (view === 'results') {
-            resultsView.classList.remove('hidden');
-        }
-    }
-
-    // --- EVENT LISTENERS ---
-    startQuizNavBtn.addEventListener('click', (e) => { 
-        e.preventDefault(); 
-        const categoriesSection = document.getElementById('categories-section');
-        categoriesSection.scrollIntoView({ behavior: 'smooth' });
-    });
-
-    const categoriesContainer = document.getElementById('categories-section');
-    categoriesContainer.addEventListener('click', (e) => {
-        if (e.target.closest('#syllabus-link')) {
-            return;
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % carouselItems.length;
+            showSlide(currentSlide);
         }
 
-        const clickedButton = e.target.closest('button.start-category-quiz');
-
-        if (!clickedButton) {
-            return;
-        }
-        
-        e.preventDefault();
-        const category = clickedButton.dataset.category;
-        startQuiz(category, clickedButton);
-    });
-
-    nextBtnQuiz.addEventListener('click', handleNextQuestion);
-    reloadBtn.addEventListener('click', () => showView('home'));
-    homeLink.addEventListener('click', (e) => { e.preventDefault(); showView('home'); });
-    backHomeBtn.addEventListener('click', () => showView('home'));
-
-    // --- CAROUSEL LOGIC ---
-    const carouselItems = document.querySelectorAll('.carousel-item');
-    const prevBtn = document.getElementById('prev-btn');
-    const nextBtnCarousel = document.getElementById('next-btn-carousel');
-    let currentCarouselIndex = 0;
-
-    function showCarouselItem(index) {
-        carouselItems.forEach((item, i) => {
-            item.style.opacity = i === index ? '1' : '0';
+        prevBtn.addEventListener('click', () => {
+            currentSlide = (currentSlide - 1 + carouselItems.length) % carouselItems.length;
+            showSlide(currentSlide);
         });
+
+        nextBtnCarousel.addEventListener('click', nextSlide);
+
+        setInterval(nextSlide, 5000); // Auto-play every 5 seconds
+        showSlide(0);
     }
-
-    function nextCarouselItem() {
-        currentCarouselIndex = (currentCarouselIndex + 1) % carouselItems.length;
-        showCarouselItem(currentCarouselIndex);
-    }
-
-    function startCarousel() {
-        if (carouselInterval) clearInterval(carouselInterval);
-        showCarouselItem(currentCarouselIndex);
-        carouselInterval = setInterval(nextCarouselItem, 5000);
-    }
-
-    prevBtn.addEventListener('click', () => {
-        currentCarouselIndex = (currentCarouselIndex - 1 + carouselItems.length) % carouselItems.length;
-        startCarousel();
-    });
-
-    nextBtnCarousel.addEventListener('click', () => {
-        nextCarouselItem();
-        startCarousel();
-    });
-
-    // Initial start
-    startCarousel();
 });
