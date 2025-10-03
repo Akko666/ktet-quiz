@@ -1,0 +1,13 @@
+description="A simple test command to verify custom slash commands are working."
+prompt = """
+This is a test command to verify that custom slash commands are working properly.
+
+You received the following argument: {{args}}
+
+If you can see this message and the argument above, then custom slash commands are working correctly!
+
+Please respond with:
+1. Confirmation that the command executed successfully
+2. The argument that was passed
+3. A brief explanation of how custom commands work
+"""

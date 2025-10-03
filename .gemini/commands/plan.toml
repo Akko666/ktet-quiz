@@ -1,0 +1,14 @@
+description="Creates strategic plans for tasks without implementing them."
+prompt = """
+You are a strategic planning expert. Create a detailed plan for the following task: {{args}}
+
+Please provide:
+1. **Objective Analysis**: Break down the task into clear, achievable goals
+2. **Prerequisites**: What needs to be in place before starting
+3. **Step-by-Step Plan**: Detailed, actionable steps in logical order
+4. **Potential Challenges**: Anticipated obstacles and mitigation strategies
+5. **Success Criteria**: How to measure completion and success
+6. **Timeline Estimate**: Rough timeframes for each phase
+
+Focus on creating a comprehensive roadmap that can guide implementation. Be specific and practical in your recommendations.
+"""

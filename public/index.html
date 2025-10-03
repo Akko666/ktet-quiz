@@ -32,81 +32,88 @@
 <body class="bg-gray-50 text-gray-800">
 
     <header class="bg-white shadow-md sticky top-0 z-50">
-        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <div class="text-2xl font-bold text-purple-700">KTET Quiz Hub</div>
-            <div>
-                <a href="#" id="home-link" class="text-gray-600 hover:text-purple-700 font-medium">Home</a>
-                <a href="#" id="start-quiz-nav" class="ml-6 bg-purple-600 text-white font-semibold px-4 py-2 rounded-md hover:bg-purple-700 transition-colors">Start Quiz</a>
+        <nav class="container mx-auto px-4 sm:px-6 py-3 flex justify-between items-center">
+            <div class="text-xl sm:text-2xl font-bold text-purple-700">KTET Quiz Hub</div>
+            <div class="md:hidden">
+                <button id="menu-button" class="text-gray-800 hover:text-purple-700 focus:outline-none p-2">
+                    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                    </svg>
+                </button>
+            </div>
+            <div id="menu" class="hidden absolute top-full left-0 w-full bg-white shadow-md md:static md:shadow-none md:flex md:items-center md:w-auto">
+                <a href="#" id="home-link" class="block text-gray-600 hover:text-purple-700 font-medium px-4 py-3 border-b md:border-none md:px-3 md:py-2 rounded-md">Home</a>
+                <a href="#" id="start-quiz-nav" class="block mt-2 mx-4 mb-4 md:mt-0 md:mx-0 md:mb-0 md:ml-4 bg-purple-600 text-white font-semibold px-4 py-2 rounded-md hover:bg-purple-700 transition-colors text-center">Start Quiz</a>
             </div>
         </nav>
     </header>
 
-    <main id="main-content" class="container mx-auto px-6 py-12">
+    <main id="main-content" class="container mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-10">
         <div id="home-view">
-            <section id="hero-carousel" class="relative w-full h-[30rem] mx-auto rounded-xl overflow-hidden shadow-2xl">
+            <section id="hero-carousel" class="relative w-full h-56 sm:h-72 md:h-96 lg:h-[30rem] mx-auto rounded-lg overflow-hidden shadow-lg">
                 <div class="carousel-container w-full h-full">
                     <div class="carousel-item absolute inset-0">
                         <img src="https://placehold.co/1200x600/8B5CF6/FFFFFF?text=Welcome!" class="w-full h-full object-cover">
-                        <div class="absolute inset-0 bg-black bg-opacity-50 flex flex-col justify-center items-center text-center text-white p-4">
-                            <h1 class="text-3xl md:text-5xl font-extrabold mb-4">Master the KTET Exam</h1>
-                            <p class="text-lg md:text-xl max-w-3xl">Your ultimate destination for curated quizzes and resources.</p>
+                        <div class="absolute inset-0 bg-black bg-opacity-40 flex flex-col justify-center items-center text-center text-white p-4">
+                            <h1 class="text-2xl sm:text-4xl md:text-5xl font-extrabold mb-2">Master the KTET Exam</h1>
+                            <p class="text-base sm:text-lg md:text-2xl max-w-xs sm:max-w-md md:max-w-3xl">Your ultimate destination for curated quizzes and resources.</p>
                         </div>
                     </div>
                     <div class="carousel-item absolute inset-0 opacity-0">
                         <img src="https://placehold.co/1200x600/EC4899/FFFFFF?text=All+Subjects" class="w-full h-full object-cover">
-                        <div class="absolute inset-0 bg-black bg-opacity-50 flex flex-col justify-center items-center text-center text-white p-4">
-                            <h1 class="text-3xl md:text-5xl font-extrabold mb-4">Comprehensive Subject Quizzes</h1>
-                            <p class="text-lg md:text-xl max-w-3xl">Practice tests available for all subjects covered in the KTET exam.</p>
+                        <div class="absolute inset-0 bg-black bg-opacity-40 flex flex-col justify-center items-center text-center text-white p-4">
+                            <h1 class="text-2xl sm:text-4xl md:text-5xl font-extrabold mb-2">Comprehensive Subject Quizzes</h1>
+                            <p class="text-base sm:text-lg md:text-2xl max-w-xs sm:max-w-md md:max-w-3xl">Practice tests available for all subjects covered in the KTET exam.</p>
                         </div>
                     </div>
                     <div class="carousel-item absolute inset-0 opacity-0">
                         <img src="https://placehold.co/1200x600/10B981/FFFFFF?text=Full+Syllabus" class="w-full h-full object-cover">
-                        <div class="absolute inset-0 bg-black bg-opacity-50 flex flex-col justify-center items-center text-center text-white p-4">
-                            <h1 class="text-3xl md:text-5xl font-extrabold mb-4">Full Syllabus Coverage</h1>
-                            <p class="text-lg md:text-xl max-w-3xl">Our questions are designed to cover the entire KTET syllabus, ensuring you're fully prepared.</p>
+                        <div class="absolute inset-0 bg-black bg-opacity-40 flex flex-col justify-center items-center text-center text-white p-4">
+                            <h1 class="text-2xl sm:text-4xl md:text-5xl font-extrabold mb-2">Full Syllabus Coverage</h1>
+                            <p class="text-base sm:text-lg md:text-2xl max-w-xs sm:max-w-md md:max-w-3xl">Our questions are designed to cover the entire KTET syllabus, ensuring you're fully prepared.</p>
                         </div>
                     </div>
                 </div>
-                <button id="prev-btn" class="absolute top-1/2 left-4 -translate-y-1/2 bg-white/30 text-white p-3 rounded-full hover:bg-white/50 transition">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
+                <button id="prev-btn" class="absolute top-1/2 left-2 -translate-y-1/2 bg-white/20 text-white p-2 rounded-full hover:bg-white/40 transition">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
                 </button>
-                <button id="next-btn-carousel" class="absolute top-1/2 right-4 -translate-y-1/2 bg-white/30 text-white p-3 rounded-full hover:bg-white/50 transition">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
+                <button id="next-btn-carousel" class="absolute top-1/2 right-2 -translate-y-1/2 bg-white/20 text-white p-2 rounded-full hover:bg-white/40 transition">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
                 </button>
             </section>
 
-            <section id="categories-section" class="mt-20">
-                <h2 class="text-3xl font-bold text-center mb-12">Explore Our Quiz Categories</h2>
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            <section id="categories-section" class="mt-12 sm:mt-16 md:mt-20">
+                <h2 class="text-2xl sm:text-3xl font-bold text-center mb-8 sm:mb-12">Explore Our Quiz Categories</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
                     <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-200">
-                        <h3 class="text-xl font-bold mb-2">Child Development & Pedagogy</h3>
-                        <p class="text-gray-600 mb-4">Crucial topics for understanding student psychology and teaching methods.</p>
+                        <h3 class="text-lg sm:text-xl font-bold mb-2">Child Development & Pedagogy</h3>
+                        <p class="text-gray-600 text-sm sm:text-base mb-4">Crucial topics for understanding student psychology and teaching methods.</p>
                         <button class="w-full text-center bg-gray-100 text-purple-700 font-semibold py-2 rounded-md hover:bg-gray-200 start-category-quiz" data-category="Child Development & Pedagogy"><span>Start Section</span></button>
                     </div>
                     <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-200">
-                        <h3 class="text-xl font-bold mb-2">Mathematics</h3>
-                        <p class="text-gray-600 mb-4">Sharpen your quantitative reasoning skills.</p>
+                        <h3 class="text-lg sm:text-xl font-bold mb-2">Mathematics</h3>
+                        <p class="text-gray-600 text-sm sm:text-base mb-4">Sharpen your quantitative reasoning skills.</p>
                         <button class="w-full text-center bg-gray-100 text-purple-700 font-semibold py-2 rounded-md hover:bg-gray-200 start-category-quiz" data-category="Mathematics"><span>Start Section</span></button>
                     </div>
                     <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-200">
-                        <h3 class="text-xl font-bold mb-2">Malayalam</h3>
-                        <p class="text-gray-600 mb-4">Test your knowledge of Malayalam grammar and comprehension.</p>
+                        <h3 class="text-lg sm:text-xl font-bold mb-2">Malayalam</h3>
+                        <p class="text-gray-600 text-sm sm:text-base mb-4">Test your knowledge of Malayalam grammar and comprehension.</p>
                         <button class="w-full text-center bg-gray-100 text-purple-700 font-semibold py-2 rounded-md hover:bg-gray-200 start-category-quiz" data-category="Malayalam"><span>Start Section</span></button>
                     </div>
                     <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-200">
-                        <h3 class="text-xl font-bold mb-2">English</h3>
-                        <p class="text-gray-600 mb-4">Improve your English language and comprehension skills.</p>
+                        <h3 class="text-lg sm:text-xl font-bold mb-2">English</h3>
+                        <p class="text-gray-600 text-sm sm:text-base mb-4">Improve your English language and comprehension skills.</p>
                         <button class="w-full text-center bg-gray-100 text-purple-700 font-semibold py-2 rounded-md hover:bg-gray-200 start-category-quiz" data-category="English"><span>Start Section</span></button>
                     </div>
                     <div class="bg-white p-6 rounded-lg shadow-lg border border-gray-200">
-                        <h3 class="text-xl font-bold mb-2">Science</h3>
-                        <p class="text-gray-600 mb-4">Test your scientific aptitude and knowledge.</p>
+                        <h3 class="text-lg sm:text-xl font-bold mb-2">Science</h3>
+                        <p class="text-gray-600 text-sm sm:text-base mb-4">Test your scientific aptitude and knowledge.</p>
                         <button class="w-full text-center bg-gray-100 text-purple-700 font-semibold py-2 rounded-md hover:bg-gray-200 start-category-quiz" data-category="Science"><span>Start Section</span></button>
                     </div>
                     <!-- BUG FIX: Added a unique ID to the syllabus link -->
                     <a id="syllabus-link" href="pages/syllabus-selection.html" class="block bg-white p-6 rounded-lg shadow-lg border border-gray-200 hover:shadow-xl hover:-translate-y-1 transition-all group">
-                        <h3 class="text-xl font-bold mb-2">KTET Syllabus</h3>
-                        <p class="text-gray-600 mb-4">Access the complete syllabus for all categories.</p>
+                        <h3 class="text-lg sm:text-xl font-bold mb-2">KTET Syllabus</h3>
+                        <p class="text-gray-600 text-sm sm:text-base mb-4">Access the complete syllabus for all categories.</p>
                         <span class="w-full mt-auto block text-center bg-gray-100 text-purple-700 font-semibold py-2 rounded-md group-hover:bg-gray-200">View Options</span>
                     </a>
                 </div>
@@ -130,43 +137,43 @@
         </div>
 
         <div id="quiz-view" class="hidden">
-            <div class="max-w-3xl mx-auto bg-white p-8 rounded-2xl shadow-xl border border-gray-200">
-                <div id="quiz-header" class="mb-6">
-                     <p id="progress-text" class="text-lg font-semibold text-gray-700">Question 1 of X</p>
-                     <div class="w-full bg-gray-200 rounded-full h-2.5 mt-2">
-                         <div id="progress-bar" class="bg-purple-600 h-2.5 rounded-full" style="width: 0%"></div>
+            <div class="max-w-3xl mx-auto bg-white p-4 sm:p-6 md:p-8 rounded-lg sm:rounded-2xl shadow-xl border border-gray-200">
+                <div id="quiz-header" class="mb-4 sm:mb-6">
+                     <p id="progress-text" class="text-base sm:text-lg font-semibold text-gray-700">Question 1 of X</p>
+                     <div class="w-full bg-gray-200 rounded-full h-2 sm:h-2.5 mt-2">
+                         <div id="progress-bar" class="bg-purple-600 h-2 sm:h-2.5 rounded-full" style="width: 0%"></div>
                      </div>
                 </div>
-                <h2 id="question" class="text-2xl font-bold mb-6 text-gray-900">Question text is loading...</h2>
-                <div id="options-container" class="space-y-4">
+                <h2 id="question" class="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 text-gray-900">Question text is loading...</h2>
+                <div id="options-container" class="space-y-3 sm:space-y-4">
                     </div>
                  <div id="feedback-message" class="mt-4 text-center font-semibold hidden"></div>
-                <div class="mt-8 flex justify-between items-center">
-                    <button id="next-btn-quiz" class="bg-purple-600 text-white font-bold px-6 py-3 rounded-lg hover:bg-purple-700 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed" disabled>Next Question</button>
+                <div class="mt-6 sm:mt-8 flex justify-between items-center">
+                    <button id="next-btn-quiz" class="bg-purple-600 text-white font-bold px-5 py-2 sm:px-6 sm:py-3 rounded-lg hover:bg-purple-700 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed" disabled>Next Question</button>
                 </div>
             </div>
         </div>
         
-        <div id="results-view" class="hidden text-center max-w-3xl mx-auto mt-12">
-            <div class="bg-white p-8 rounded-2xl shadow-xl border border-gray-200">
-                <h2 class="text-4xl font-extrabold text-gray-900 mb-2">Quiz Complete!</h2>
-                <p class="text-lg text-gray-600 mb-6">Here's how you did:</p>
+        <div id="results-view" class="hidden text-center max-w-3xl mx-auto mt-8 sm:mt-12">
+            <div class="bg-white p-6 sm:p-8 rounded-xl sm:rounded-2xl shadow-xl border border-gray-200">
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-gray-900 mb-2">Quiz Complete!</h2>
+                <p class="text-base sm:text-lg text-gray-600 mb-4 sm:mb-6">Here's how you did:</p>
                 
-                <div id="score-card" class="relative w-48 h-48 mx-auto mb-8 flex items-center justify-center">
+                <div id="score-card" class="relative w-36 h-36 sm:w-48 sm:h-48 mx-auto mb-6 sm:mb-8 flex items-center justify-center">
                     <svg class="w-full h-full" viewBox="0 0 100 100">
                         <circle class="text-gray-200" stroke-width="10" stroke="currentColor" fill="transparent" r="45" cx="50" cy="50"/>
                         <circle id="score-ring" class="text-purple-600" stroke-width="10" stroke-linecap="round" stroke="currentColor" fill="transparent" r="45" cx="50" cy="50" style="transform: rotate(-90deg); transform-origin: 50% 50%; transition: stroke-dashoffset 1.5s ease-out;"/>
                     </svg>
-                    <div id="score-percentage" class="absolute text-4xl font-bold text-purple-700">0%</div>
+                    <div id="score-percentage" class="absolute text-3xl sm:text-4xl font-bold text-purple-700">0%</div>
                 </div>
 
-                <p id="score-details" class="text-2xl font-medium text-gray-800 mb-8">You scored 0 out of 0</p>
+                <p id="score-details" class="text-xl sm:text-2xl font-medium text-gray-800 mb-6 sm:mb-8">You scored 0 out of 0</p>
                 
-                <div class="flex justify-center items-center space-x-4">
-                    <button id="next-batch-btn" class="bg-green-600 text-white font-bold px-8 py-4 rounded-lg text-lg hover:bg-green-700 transition-all transform hover:scale-105">
+                <div class="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-4">
+                    <button id="next-batch-btn" class="bg-green-600 text-white font-bold px-6 py-3 sm:px-8 sm:py-4 rounded-lg text-base sm:text-lg hover:bg-green-700 transition-all transform hover:scale-105">
                         Next Batch
                     </button>
-                    <button id="reload-btn" class="bg-purple-600 text-white font-bold px-8 py-4 rounded-lg text-lg hover:bg-purple-700 transition-all transform hover:scale-105 opacity-0" style="transition-delay: 1.5s;">
+                    <button id="reload-btn" class="bg-purple-600 text-white font-bold px-6 py-3 sm:px-8 sm:py-4 rounded-lg text-base sm:text-lg hover:bg-purple-700 transition-all transform hover:scale-105 opacity-0" style="transition-delay: 1.5s;">
                         Try Again
                     </button>
                 </div>
@@ -175,8 +182,8 @@
 
     </main>
 
-    <footer class="bg-white mt-16 border-t">
-        <div class="container mx-auto px-6 py-8 text-center text-gray-500">
+    <footer class="bg-white mt-12 sm:mt-16 border-t">
+        <div class="container mx-auto px-6 py-6 text-center text-gray-500 text-sm">
             <p>&copy; 2024 KTET Quiz Hub. All Rights Reserved.</p>
         </div>
     </footer>

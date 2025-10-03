@@ -1,5 +1,12 @@
 # Changelog
 
+### Scorecard & AI Generation
+- Modified quiz flow to show the scorecard after every 15-question batch.
+- Added a "Next Batch" button to the scorecard to allow users to continue with more questions from the same category.
+- Fixed a bug where the "Next Batch" button was not appearing correctly.
+- Implemented more robust error handling for the server-side AI question generation to prevent crashes.
+- Corrected an issue where categories without preset questions failed to trigger the AI generation.
+
 ### Recent Refinements & Fixes
 - **Build Process:** Migrated from Tailwind CDN to a proper `npm run build` process for production-ready CSS.
 - **API & Routing:** Overhauled `vercel.json` to fix 404 errors for the API, syllabus pages, and static assets during deployment.

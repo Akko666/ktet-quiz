@@ -1,0 +1,12 @@
+description="Analyzes and suggests improvements for commit messages."
+prompt = """
+Analyze the following commit message and suggest improvements: {{args}}
+
+Please provide:
+1. Whether the commit message follows conventional commit format
+2. Specific suggestions for improvement
+3. A revised version if needed
+4. Explanation of why the changes improve the commit message
+
+Focus on clarity, conciseness, and adherence to conventional commit standards.
+"""
