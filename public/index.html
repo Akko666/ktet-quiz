@@ -6,6 +6,7 @@
     <title>KTET Quiz Hub - Modern Learning Platform</title>
     <link href="/css/style.css" rel="stylesheet">
     <link href="/css/animations.css" rel="stylesheet">
+    <link href="/css/premium-quiz.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         body {
@@ -137,18 +138,20 @@
         </div>
 
         <div id="quiz-view" class="hidden">
-            <div class="max-w-3xl mx-auto bg-white p-4 sm:p-6 md:p-8 rounded-lg sm:rounded-2xl shadow-xl border border-gray-200">
-                <div id="quiz-header" class="mb-4 sm:mb-6">
+            <div id="quiz-card" class="max-w-3xl mx-auto">
+                <div id="quiz-header">
                      <p id="progress-text" class="text-base sm:text-lg font-semibold text-gray-700">Question 1 of X</p>
                      <div class="w-full bg-gray-200 rounded-full h-2 sm:h-2.5 mt-2">
                          <div id="progress-bar" class="bg-purple-600 h-2 sm:h-2.5 rounded-full" style="width: 0%"></div>
                      </div>
                 </div>
-                <h2 id="question" class="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 text-gray-900">Question text is loading...</h2>
-                <div id="options-container" class="space-y-3 sm:space-y-4">
+                <div id="question-body">
+                    <h2 id="question" class="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 text-gray-900">Question text is loading...</h2>
+                    <div id="options-container" class="space-y-3 sm:space-y-4">
                     </div>
-                 <div id="feedback-message" class="mt-4 text-center font-semibold hidden"></div>
-                <div class="mt-6 sm:mt-8 flex justify-between items-center">
+                </div>
+                <div id="feedback-message" class="hidden"></div>
+                <div id="quiz-footer">
                     <button id="next-btn-quiz" class="bg-purple-600 text-white font-bold px-5 py-2 sm:px-6 sm:py-3 rounded-lg hover:bg-purple-700 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed" disabled>Next Question</button>
                 </div>
             </div>

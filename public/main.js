@@ -155,8 +155,15 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function loadNextPresetBatch() {
-        const nextBatch = allPresetQuestions.slice(presetQuestionOffset, presetQuestionOffset + QUESTION_BATCH_SIZE);
+        let nextBatch = allPresetQuestions.slice(presetQuestionOffset, presetQuestionOffset + QUESTION_BATCH_SIZE);
         presetQuestionOffset += QUESTION_BATCH_SIZE;
+
+        if (nextBatch.length < QUESTION_BATCH_SIZE && allPresetQuestions.length > 0) {
+            const remaining = QUESTION_BATCH_SIZE - nextBatch.length;
+            presetQuestionOffset = 0;
+            nextBatch = nextBatch.concat(allPresetQuestions.slice(presetQuestionOffset, remaining));
+            presetQuestionOffset = remaining;
+        }
 
         if (nextBatch.length > 0) {
             questions = nextBatch;
@@ -205,6 +212,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         currentQuestionIndex = 0;
         score = 0; // Reset score for each new batch
+        quizView.classList.add('premium');
         showView('quiz');
         displayQuestion();
     }
@@ -218,15 +226,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const question = questions[currentQuestionIndex];
         questionContainer.textContent = question.question;
+        questionContainer.className = 'text-xl sm:text-2xl font-bold mb-4 sm:mb-6 text-gray-900 question-fade-in';
         optionsContainer.innerHTML = '';
         
         question.options.forEach((option, index) => {
-            const li = document.createElement('li');
-            li.textContent = option;
-            li.classList.add('quiz-option', 'p-3', 'sm:p-4', 'text-sm', 'sm:text-base', 'border-2', 'rounded-lg', 'cursor-pointer', 'hover:bg-purple-100', 'transition-colors');
-            li.dataset.index = index;
-            li.addEventListener('click', handleOptionClick);
-            optionsContainer.appendChild(li);
+            const optionEl = document.createElement('div');
+            optionEl.className = 'quiz-option option-pop-in';
+            optionEl.style.animationDelay = `${index * 100}ms`;
+            optionEl.dataset.index = index;
+
+            const optionLetter = document.createElement('div');
+            optionLetter.className = 'option-letter';
+            optionLetter.textContent = String.fromCharCode(65 + index);
+
+            const optionText = document.createElement('span');
+            optionText.textContent = option;
+
+            optionEl.appendChild(optionLetter);
+            optionEl.appendChild(optionText);
+            
+            optionEl.addEventListener('click', handleOptionClick);
+            optionsContainer.appendChild(optionEl);
         });
 
         updateProgress();
@@ -251,12 +271,14 @@ document.addEventListener('DOMContentLoaded', () => {
             score++;
             selectedOption.classList.add('correct');
             feedbackMessage.textContent = "Correct! " + question.explanation;
-            feedbackMessage.className = 'mt-4 text-center font-semibold text-green-700';
+            feedbackMessage.className = 'feedback-message correct';
         } else {
             selectedOption.classList.add('incorrect');
             optionsContainer.children[correctAnswerIndex].classList.add('correct');
             feedbackMessage.textContent = "Incorrect. " + question.explanation;
-            feedbackMessage.className = 'mt-4 text-center font-semibold text-red-700';
+            feedbackMessage.className = 'feedback-message incorrect';
+            // Add shake animation to the quiz card
+            document.getElementById('quiz-card').classList.add('shake');
         }
 
         feedbackMessage.classList.remove('hidden');
@@ -264,6 +286,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function handleNextQuestion() {
+        // Remove shake animation if it exists
+        document.getElementById('quiz-card').classList.remove('shake');
         currentQuestionIndex++;
         if (currentQuestionIndex < questions.length) {
             displayQuestion();

@@ -1,5 +1,12 @@
 # Changelog
 
+### UI Overhaul & Bug Fixes
+- **Premium Quiz UI:** Overhauled the quiz interface with a modern, card-based design, improved typography, and a new color scheme.
+- **Engaging Animations:** Added animations for question and option display, and a shake animation for incorrect answers to enhance user experience.
+- **Malayalam Questions:** Added a new set of preset questions for the "Malayalam" category.
+- **Bug Fix (Next Batch):** Corrected an issue where the "Next Batch" feature was not loading a full set of 15 questions.
+- **Bug Fix (Next Question):** Fixed a critical bug where the "Next Question" button was unresponsive.
+
 ### Scorecard & AI Generation
 - Modified quiz flow to show the scorecard after every 15-question batch.
 - Added a "Next Batch" button to the scorecard to allow users to continue with more questions from the same category.
