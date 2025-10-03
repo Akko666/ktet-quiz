@@ -2,13 +2,13 @@
 
 ## 1. Current Focus
 
-The current focus is on improving the user interface and fixing bugs to enhance the overall user experience.
+The current focus is on improving the user interface and fixing bugs to enhance the overall user experience, and expanding the content with more preset questions.
 
 ## 2. Recent Changes
 
 - **UI Overhaul:** The quiz display has been significantly improved with a new premium design and engaging animations.
 - **Bug Fixes:** Addressed two critical bugs related to the "Next Batch" and "Next Question" functionality.
-- **Content Update:** Added preset questions for the Malayalam category.
+- **Content Update:** Added preset questions for the Malayalam, English, Science, and Mathematics categories.
 
 ## 3. Next Steps
 
@@ -16,7 +16,7 @@ The current focus is on improving the user interface and fixing bugs to enhance 
 
 ## 4. Active Decisions & Considerations
 
-- The project is now in a more stable state with the recent UI improvements and bug fixes.
+- The project is now in a more stable state with the recent UI improvements, bug fixes, and expanded content.
 
 ## 5. User Reported Issues (2025-10-01)
 

@@ -1,5 +1,10 @@
 # Changelog
 
+### Content Additions
+- **English Questions:** Added a new set of preset questions for the "English" category.
+- **Science Questions:** Added a new set of preset questions for the "Science" category.
+- **Mathematics Questions:** Added a new set of preset questions for the "Mathematics" category.
+
 ### UI Overhaul & Bug Fixes
 - **Premium Quiz UI:** Overhauled the quiz interface with a modern, card-based design, improved typography, and a new color scheme.
 - **Engaging Animations:** Added animations for question and option display, and a shake animation for incorrect answers to enhance user experience.

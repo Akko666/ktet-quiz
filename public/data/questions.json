@@ -1172,6 +1172,366 @@
     {
       "name": "Mathematics",
       "questions": [
+        {
+          "id": 1,
+          "question": "ഗണിത പഠനത്തിന് അനുയോജ്യമല്ലാത്ത സോഫ്റ്റ്വെയർ ഏതാണ് ?",
+          "options": [
+            "KBruch",
+            "GeoGebra",
+            "DrGeo",
+            "Marble"
+          ],
+          "correctIndex": 3,
+          "explanation": ""
+        },
+        {
+          "id": 2,
+          "question": "ശിശുദിനം വ്യാഴാഴ്ച ആണെങ്കിൽ ആ വർഷത്തെ ക്രിസ്തുമസ് ഏതാഴ്ച ആയിരിക്കും ?",
+          "options": [
+            "തിങ്കളാഴ്ച",
+            "വെള്ളിയാഴ്ച",
+            "ബുധനാഴ്ച",
+            "വ്യാഴാഴ്ച"
+          ],
+          "correctIndex": 2,
+          "explanation": ""
+        },
+        {
+          "id": 3,
+          "question": "മികച്ച ഒരു ഗണിത ക്ലാസിന് അനുയോജ്യമല്ലാത്തത് ഏത് ?",
+          "options": [
+            "അറിവ് നിർമ്മിക്കുവാൻ കുട്ടിയെ പ്രോത്സാഹിപ്പിക്കുക",
+            "ചിന്തോദ്ദീപകമായ ചോദ്യങ്ങൾ ചോദിക്കുക",
+            "പ്രശ്നങ്ങളുടെ കണ്ടെത്തുവാൻ സഹായിക്കുക. ഉത്തരം കുട്ടികളെ",
+            "സൂത്രവാക്യങ്ങളും സിദ്ധാന്തങ്ങളും മനപ്പാഠമാക്കുവാൻ പ്രോത്സാഹിപ്പിക്കുക"
+          ],
+          "correctIndex": 3,
+          "explanation": ""
+        },
+        {
+          "id": 4,
+          "question": "ലീലാവതി എന്ന ഗണിത ശാസ്ത്ര ഗ്രന്ഥം എഴുതിയത് ആര് ?",
+          "options": [
+            "ശ്രീനിവാസ രാമാനുജൻ",
+            "ഭാസ്കരാചാര്യ",
+            "ആര്യഭട്ട",
+            "ബ്രഹ്മഗുപ്ത"
+          ],
+          "correctIndex": 1,
+          "explanation": ""
+        },
+        {
+          "id": 5,
+          "question": "12000 രൂപയ്ക്ക് 10% നിരക്കിൽ ഒരു മാസത്തെ സാധാരണ പലിശ എത്രയാണ് ?",
+          "options": [
+            "120",
+            "1200",
+            "100",
+            "600"
+          ],
+          "correctIndex": 2,
+          "explanation": ""
+        },
+        {
+          "id": 6,
+          "question": "പ്രൈമറി തലത്തിലെ ഗണിത പഠനത്തിൻ്റെ വിലയിരുത്തലിൽ മുഖ്യമായും ഊന്നൽ നൽകേണ്ടതില്ലാത്തത്:",
+          "options": [
+            "അടിസ്ഥാന ഗണിതാശയങ്ങൾ രൂപപ്പെടുത്തുന്നതിന്",
+            "ഗണിത ഭാഷ പരിചയപ്പെടുത്തു-ന്നതിന്",
+            "ഏതു ഗണിത പ്രശ്നങ്ങളുടെയും ഉത്തരം കണ്ടെത്തുന്നതിൽ വേഗത ഉറപ്പു വരുത്തുന്നതിന്",
+            "യുക്തി ബോധം രൂപപ്പെടുത്തുന്നതിന്"
+          ],
+          "correctIndex": 2,
+          "explanation": ""
+        },
+        {
+          "id": 7,
+          "question": "ചുവടെ കൊടുത്തിരിക്കുന്നവയിൽ ഏത് ആശയം ചർച്ച ചെയ്യുന്ന അവസരത്തിലാണ് നിഗമന രീതി ഏറ്റവും അനുയോജ്യമാകുന്നത് ?",
+          "options": [
+            "ആന്തര സഹകോണുകൾ തുല്യം",
+            "ഗോളത്തിന്റെ വ്യാപ്തം",
+            "ആദ്യത്തെ n എണ്ണൽ സംഖ്യകളുടെ തുക",
+            "കൃത്യാങ്ക നിയമങ്ങൾ"
+          ],
+          "correctIndex": 1,
+          "explanation": ""
+        },
+        {
+          "id": 8,
+          "question": "100 മീറ്റർ/സെക്കന്റ്റ് = _______ കിലോമീറ്റർ / മണിക്കൂർ",
+          "options": [
+            "300",
+            "360",
+            "180",
+            "150"
+          ],
+          "correctIndex": 1,
+          "explanation": ""
+        },
+        {
+          "id": 9,
+          "question": "രാവിലെ 9.40 ന് തിരുവനന്തപുരത്തു നിന്ന് പുറപ്പെടുന്ന ഒരു ട്രെയിൻ അന്നേ ദിവസം വൈകിട്ട് 5.20 ന് കണ്ണൂരിൽ എത്തുന്നു. യാത്രയ്ക്ക് എടുത്ത സമയം എത്ര ?",
+          "options": [
+            "7 മണിക്കൂർ 40 മിനിറ്റ്",
+            "7 മണിക്കൂർ 20 മിനിറ്റ്",
+            "7 മണിക്കൂർ 30 മിനിറ്റ്",
+            "4 മണിക്കൂർ 20 മിനിറ്റ്"
+          ],
+          "correctIndex": 0,
+          "explanation": ""
+        },
+        {
+          "id": 10,
+          "question": "മൂന്ന് അഭാജ്യ സംഖ്യകളുടെ ഗുണനഫലം 154 ആകുന്നു. ഇവയുടെ തുക എത് എന്ന ചോദ്യത്തിന് ഉത്തരം കണ്ടെത്തുവാൻ സഹായകമായ അടിസ്ഥാന ഗണിത അറിവ് ചുവടെ കൊടുത്തവയിൽ ഏതാണ് ?",
+          "options": [
+            "മൂന്ന് അഭാജ്യ സംഖ്യകളും ഒറ്റ സംഖ്യകളാണ്",
+            "ഇവയിൽ ഒരെണ്ണം ഉറപ്പായും 2 ആണ്",
+            "തുക ഉറപ്പായും ഒരു അഭാജ്യ സംഖ്യ ആയിരിക്കും",
+            "തുക മൂന്നിന്റെ ഗുണിതം ആയിരിക്കും"
+          ],
+          "correctIndex": 1,
+          "explanation": ""
+        },
+        {
+          "id": 11,
+          "question": "ചുവടെ കൊടുത്തിരിക്കുന്ന പാറ്റേ പരിഗണിക്കൂ, 1^2+(4x2)=3^2, 2^2+(4x3)=4^2, 3^2+(4x4)=5^2 ആണ്. ഇതുപോലെ 10^2+(4x11)=?",
+          "options": [
+            "12^2",
+            "10^2",
+            "11^2",
+            "9^2"
+          ],
+          "correctIndex": 0,
+          "explanation": ""
+        },
+        {
+          "id": 12,
+          "question": "ഒരാൾ നിൽക്കുന്ന സ്ഥലത്ത് നിന്ന് നേരെ കിഴക്കോട്ട് 12 മീറ്ററും അവിടെ നിന്ന് നേനെ വടക്കോട്ട് 9 മീറ്ററും നടന്നു. യാത്ര തുടങ്ങിയ ഇടത്തിൽ നിന്നും ഇപ്പോൾ അയാൾ എന്ത് അകലത്തിലാണ് ?",
+          "options": [
+            "13 മീറ്റർ",
+            "15 മീറ്റർ",
+            "21 മീറ്റർ",
+            "16.5 മീറ്റർ"
+          ],
+          "correctIndex": 1,
+          "explanation": ""
+        },
+        {
+          "id": 13,
+          "question": "4x+3=2x+11 എങ്കിൽ x ന്റെ വില എത്ര ?",
+          "options": [
+            "8",
+            "4",
+            "2",
+            "0"
+          ],
+          "correctIndex": 1,
+          "explanation": ""
+        },
+        {
+          "id": 14,
+          "question": "5 1/2 ൽ എത്ര 1/4 കളുണ്ട് ?",
+          "options": [
+            "22",
+            "10",
+            "24",
+            "20"
+          ],
+          "correctIndex": 0,
+          "explanation": ""
+        },
+        {
+          "id": 15,
+          "question": "തുടർച്ചയായ രണ്ട് എണ്ണൽ സംഖ്യകളുടെ തുക 81 ആണ്. എങ്കിൽ അവയുടെ വർഗ്ഗങ്ങളുടെ വ്യത്യാസം എത്രയായിരിക്കും ?",
+          "options": [
+            "161",
+            "80",
+            "81",
+            "160"
+          ],
+          "correctIndex": 2,
+          "explanation": ""
+        },
+        {
+          "id": 16,
+          "question": "ഒരു ഗെയിമിൽ രാജുവിന് ആദ്യ റൗണ്ടിൽ 7 മുത്തുകളും രണ്ടാം റൗണ്ടിൽ 5 മുത്തുകളും നഷ്ടപ്പെട്ടു. അവന്റെ പക്കൽ 8 മുത്തുകൾ അവശേഷിച്ചു. എത്ര മുത്തുകൾ കൊണ്ടാണ് അവൻ ഗെയിം ആരംഭിച്ചത് ?-ഈ ചോദ്യം ഏതു തരം ചോദ്യമാണ് ?",
+          "options": [
+            "തുറന്ന ചോദ്യം",
+            "ബഹുവികല്പ ചോദ്യം",
+            "വ്യവകലനത്തെ സംബന്ധിക്കുന്ന സന്ദർഭോചിതമായ ചോദ്യം",
+            "സങ്കലനത്തെ സംബന്ധിക്കുന്ന സന്ദർഭോചിതമായ ചോദ്യം"
+          ],
+          "correctIndex": 3,
+          "explanation": ""
+        },
+        {
+          "id": 17,
+          "question": "'50 പശുക്കളെ 9 കുറ്റികളിലായി കെട്ടണം. ഓരോ കുറ്റിയിലും കെട്ടേണ്ട പശുക്കളുടെ എണ്ണം ഒറ്റ സംഖ്യയുമാകണം. ഇത് എങ്ങനെ സാധ്യമാകും?' എന്ന ചോദ്യത്തിന് ഇത് ഒരിക്കലും സാധ്യമാകില്ല എന്ന് പറയുവാൻ തക്കവണ്ണം കുട്ടിയിൽ ഉണ്ടായിരിക്കേണ്ട അടിസ്ഥാന ഗണിത ചിന്ത എന്തായിരിക്കണം ?",
+          "options": [
+            "9 ഒറ്റ സംഖ്യകളുടെ തുക 50 ൽ കുറവായിരിക്കും",
+            "9 ഒറ്റ സംഖ്യകളുടെ തുക 50 ൽ കൂടുതലായിരിക്കും",
+            "68 സംഖ്യകളുടെ എല്ലായ്പ്‌പോഴും തന്നെയായിരിക്കും തുക സംഖ്യ",
+            "9 ഒറ്റ സംഖ്യകളുടെ തുക ഒരിക്കലും ഒരു ഇരട്ട സംഖ്യ ആകില്ല"
+          ],
+          "correctIndex": 3,
+          "explanation": ""
+        },
+        {
+          "id": 18,
+          "question": "4000 ന്റെ 20% ശതമാനം എത്ര ?",
+          "options": [
+            "200",
+            "100",
+            "800",
+            "80"
+          ],
+          "correctIndex": 2,
+          "explanation": ""
+        },
+        {
+          "id": 19,
+          "question": "പ്രൈമറി തലത്തിലെ ഗണിത പഠനത്തിൻ്റെ ഉള്ളടക്ക മേഖലയിൽ ഉൾപ്പെടാത്തത് ഏത് ?",
+          "options": [
+            "ജ്യാമിതി",
+            "നിർദ്ദേശാങ്ക ജ്യാമിതി",
+            "സംഖ്യാ ബോധം",
+            "ഭിന്നസംഖ്യ"
+          ],
+          "correctIndex": 1,
+          "explanation": ""
+        },
+        {
+          "id": 20,
+          "question": "നിരന്തര വിലയിരുത്തലിന്റെ ഭാഗമല്ലാത്തത് ഏത് ?",
+          "options": [
+            "പ്രോജക്ട‌്",
+            "സെമിനാർ",
+            "ക്ലാസ് ടെസ്റ്റ്",
+            "ടേം വിലയിരുത്തൽ"
+          ],
+          "correctIndex": 3,
+          "explanation": ""
+        },
+        {
+          "id": 21,
+          "question": "ഒരു റാങ്ക് പട്ടികയിൽ അനു മുകളിൽ നിന്നും പത്താമതും ചുവട്ടിൽ നിന്നും പതിനെട്ടാമതും ആണ്. ഈ റാങ്ക് പട്ടികയിൽ ആകെ എത്ര പേരുണ്ട് ?",
+          "options": [
+            "20",
+            "27",
+            "19",
+            "11"
+          ],
+          "correctIndex": 1,
+          "explanation": ""
+        },
+        {
+          "id": 22,
+          "question": "തുടർച്ചയായ മൂന്ന് എണ്ണൽ സംഖ്യകളുടെ തുക 54. അവയിൽ ഏറ്റവും വലിയ സംഖ്യ ഏത് ?",
+          "options": [
+            "17",
+            "18",
+            "19",
+            "20"
+          ],
+          "correctIndex": 2,
+          "explanation": ""
+        },
+        {
+          "id": 23,
+          "question": "7, 3, 0, 5 എന്നീ നാലക്കങ്ങളും ഉപയോഗിച്ച് എഴുതാവുന്ന 5 ന്റെ ഗുണിതമായ ഏറ്റവും ചെറിയ നാലക്ക സംഖ്യ ഏത് ?",
+          "options": [
+            "3057",
+            "3570",
+            "3075",
+            "7530"
+          ],
+          "correctIndex": 2,
+          "explanation": ""
+        },
+        {
+          "id": 24,
+          "question": "1-(1/2+1/4+1/8) ന്റെ വില എത്ര ?",
+          "options": [
+            "1/16",
+            "15/16",
+            "7/8",
+            "1/8"
+          ],
+          "correctIndex": 3,
+          "explanation": ""
+        },
+        {
+          "id": 25,
+          "question": "ഒരു വൃത്തത്തെ 8 തുല്യ ഭാഗങ്ങളായി വിഭജിച്ചിരിക്കുന്നു. ചിത്രത്തിൽ ഷേഡ് ചെയ്തിരിക്കുന്ന ഭാഗത്തെ സൂചിപ്പിക്കുന്ന ഭിന്നസംഖ്യ ഏത് ?",
+          "options": [
+            "3/8",
+            "2/3",
+            "1/4",
+            "3/5"
+          ],
+          "correctIndex": 0,
+          "explanation": ""
+        },
+        {
+          "id": 26,
+          "question": "ത്രികോണം ABC ഒരു സമപാർശ ത്രികോണം ആണ്. ABC=120° ആയാൽ A യുടെ അളവ് എത്ര ?",
+          "options": [
+            "60°",
+            "30°",
+            "45°",
+            "90°"
+          ],
+          "correctIndex": 1,
+          "explanation": ""
+        },
+        {
+          "id": 27,
+          "question": "ചിത്രത്തിൽ AB, CD എന്നിവ രണ്ട് സമാന്തര വരകളാണ്. OPD=50°, OQB=60° ആണ്. POQ ന്റെ അളവ് എത്ര ?",
+          "options": [
+            "100°",
+            "120°",
+            "110°",
+            "130°"
+          ],
+          "correctIndex": 2,
+          "explanation": ""
+        },
+        {
+          "id": 28,
+          "question": "രണ്ട് സമചതുരങ്ങൾ ചേർത്തുവച്ച് ഒരു ചതുരം നിർമ്മിച്ചിരിക്കുന്നു. ഓരോ സമചതുരത്തിന്റെയും പരപ്പളവ് 64 ചതുരശ്ര സെന്റീ മീറ്റർ വീതമാണ്. എങ്കിൽ, ചതുരത്തിൻ്റെ ചുറ്റളവ് എത്രയാണ് ?",
+          "options": [
+            "48 സെന്റീ മീറ്റർ",
+            "128 സെന്റീ മീറ്റർ",
+            "80 സെന്റീ മീറ്റർ",
+            "64 സെന്റീ മീറ്റർ"
+          ],
+          "correctIndex": 0,
+          "explanation": ""
+        },
+        {
+          "id": 29,
+          "question": "ചിത്രത്തിൽ AB എന്ന വരയിലെ ഒരു ബിന്ദുവാണ് 0. AOP യുടെ അളവിൻ്റെ നാലു മടങ്ങാണ് BOP യുടെ അളവ്. BOP അളവ് എത്ര ?",
+          "options": [
+            "144°",
+            "120°",
+            "36°",
+            "72°"
+          ],
+          "correctIndex": 0,
+          "explanation": ""
+        },
+        {
+          "id": 30,
+          "question": "ഒരു കലണ്ടറിൽ നിന്നുള്ള 9 സംഖ്യകൾ ഉൾപ്പെടുന്ന ഒരു സമചതുരമാണ് ചിത്രത്തിൽ കൊടുത്തിരിക്കുന്നത്. X സൂചിപ്പിക്കുന്ന സംഖ്യ ഏത് ?",
+          "options": [
+            "16",
+            "17",
+            "18",
+            "19"
+          ],
+          "correctIndex": 2,
+          "explanation": ""
+        }
       ]
     },
     {
@@ -1421,11 +1781,649 @@
     },
     {
       "name": "English",
-      "questions": []
+      "questions": [
+        {
+          "id": 1,
+          "question": "The most appropriate title to the passage is:",
+          "options": [
+            "The power of resilience",
+            "The power of education",
+            "The result of activism",
+            "An attack on a girl"
+          ],
+          "correctIndex": 1,
+          "explanation": ""
+        },
+        {
+          "id": 2,
+          "question": "Attempt to silence her had inadvertently amplified her voice. This means that it:",
+          "options": [
+            "made her voice heard by more people",
+            "her voice doubled its frequency",
+            "she silenced herself",
+            "she began to talk continuously"
+          ],
+          "correctIndex": 0,
+          "explanation": ""
+        },
+        {
+          "id": 3,
+          "question": "What does the word testament mean?",
+          "options": [
+            "test result of something",
+            "strong proof of something",
+            "time-tested document",
+            "tests done periodically"
+          ],
+          "correctIndex": 1,
+          "explanation": ""
+        },
+        {
+          "id": 4,
+          "question": "The outcome of the assassination attempt on Malala was that:",
+          "options": [
+            "it left her with severe injuries",
+            "it damaged her skull",
+            "it paralysed her face",
+            "all the above"
+          ],
+          "correctIndex": 3,
+          "explanation": ""
+        },
+        {
+          "id": 5,
+          "question": "One child, one teacher, one pen, and one book can change the world. This indicates that:",
+          "options": [
+            "One child in one family should be the norm",
+            "The pen is mightier than the sword",
+            "Collective action is the need of the hour",
+            "Education has true transformative power"
+          ],
+          "correctIndex": 3,
+          "explanation": ""
+        },
+        {
+          "id": 6,
+          "question": "Malala stood strongly for:",
+          "options": [
+            "freedom of movement",
+            "freedom for expression",
+            "education of girls",
+            "serving as an activist"
+          ],
+          "correctIndex": 2,
+          "explanation": ""
+        },
+        {
+          "id": 7,
+          "question": "My neighbour is _________ university employee.",
+          "options": [
+            "a",
+            "an",
+            "the",
+            "no article needed"
+          ],
+          "correctIndex": 0,
+          "explanation": ""
+        },
+        {
+          "id": 8,
+          "question": "Identify the sentence in the passive voice:",
+          "options": [
+            "The gardener watered only the flowering plants.",
+            "The plan was explained in detail.",
+            "She has joined a new firm.",
+            "He will attend the meeting in time."
+          ],
+          "correctIndex": 1,
+          "explanation": ""
+        },
+        {
+          "id": 9,
+          "question": "Which of the following sentences is grammatically correct?",
+          "options": [
+            "Neither the leader nor the followers was ready for the dialogue.",
+            "Neither the leader nor the followers were ready for the dialogue.",
+            "Neither the leader or the followers were ready for the dialogue.",
+            "Neither the leader or the followers were not ready for the dialogue."
+          ],
+          "correctIndex": 1,
+          "explanation": ""
+        },
+        {
+          "id": 10,
+          "question": "The boy sings very melodiously, but sometimes he get nervous while performing. Spot the error:",
+          "options": [
+            "The boy",
+            "sings melodiously",
+            "but sometimes",
+            "he get nervous while performing"
+          ],
+          "correctIndex": 3,
+          "explanation": ""
+        },
+        {
+          "id": 11,
+          "question": "Identify the sentence that uses the past perfect tense:",
+          "options": [
+            "She has finished her homework and left for the school.",
+            "She finished her homework and left for the school.",
+            "He had finished her homework before she left for the school.",
+            "She would finish her homework before she leave for the school."
+          ],
+          "correctIndex": 2,
+          "explanation": ""
+        },
+        {
+          "id": 12,
+          "question": "I have talked to him _________.",
+          "options": [
+            "more",
+            "much",
+            "some",
+            "several"
+          ],
+          "correctIndex": 3,
+          "explanation": ""
+        },
+        {
+          "id": 13,
+          "question": "By the time he reaches the school, the class _________.",
+          "options": [
+            "will start",
+            "will be started",
+            "will have started",
+            "will have been starting"
+          ],
+          "correctIndex": 2,
+          "explanation": ""
+        },
+        {
+          "id": 14,
+          "question": "Which word is a synonym of abundant?",
+          "options": [
+            "Rare",
+            "Scarce",
+            "Luxury",
+            "Plenty"
+          ],
+          "correctIndex": 3,
+          "explanation": ""
+        },
+        {
+          "id": 15,
+          "question": "The new firms are ready to _________ the required amount in advance.",
+          "options": [
+            "put on",
+            "put off",
+            "set out",
+            "put in"
+          ],
+          "correctIndex": 3,
+          "explanation": ""
+        },
+        {
+          "id": 16,
+          "question": "The striking employees are not ready to yield _________ all the negotiations.",
+          "options": [
+            "in case",
+            "until",
+            "despite",
+            "unless"
+          ],
+          "correctIndex": 2,
+          "explanation": ""
+        },
+        {
+          "id": 17,
+          "question": "Practice makes perfect, _________?",
+          "options": [
+            "does it",
+            "doesn't it",
+            "isn't it",
+            "should it"
+          ],
+          "correctIndex": 1,
+          "explanation": ""
+        },
+        {
+          "id": 18,
+          "question": "Identify the sentence that uses an adverb:",
+          "options": [
+            "The old man is a careful worker.",
+            "The weather is nice.",
+            "The dish tastes delicious.",
+            "John runs fast."
+          ],
+          "correctIndex": 3,
+          "explanation": ""
+        },
+        {
+          "id": 19,
+          "question": "We're looking forward _________ meeting you.",
+          "options": [
+            "at",
+            "to",
+            "with",
+            "for"
+          ],
+          "correctIndex": 1,
+          "explanation": ""
+        },
+        {
+          "id": 20,
+          "question": "Everyone brought _________ reference dictionary for the class.",
+          "options": [
+            "her",
+            "his",
+            "their",
+            "everybody's"
+          ],
+          "correctIndex": 1,
+          "explanation": ""
+        },
+        {
+          "id": 21,
+          "question": "Which of the following sentences correctly uses a preposition?",
+          "options": [
+            "She is good in mathematics.",
+            "The boy is interested on sports.",
+            "He is familiar in the new policies.",
+            "The car turned off the main road."
+          ],
+          "correctIndex": 3,
+          "explanation": ""
+        },
+        {
+          "id": 22,
+          "question": "If I were you, _________.",
+          "options": [
+            "I will take up the job.",
+            "I would take up the job.",
+            "I will have taken up the job.",
+            "I would have taken up the job."
+          ],
+          "correctIndex": 1,
+          "explanation": ""
+        },
+        {
+          "id": 23,
+          "question": "The concert was _________ than I expected.",
+          "options": [
+            "good",
+            "better",
+            "best",
+            "more good"
+          ],
+          "correctIndex": 1,
+          "explanation": ""
+        },
+        {
+          "id": 24,
+          "question": "The new employees are qualified but not experienced. (Identify the type of error in it.)",
+          "options": [
+            "Subject-verb agreement",
+            "Tense consistency",
+            "Modifier placement",
+            "Pronoun reference"
+          ],
+          "correctIndex": 0,
+          "explanation": ""
+        },
+        {
+          "id": 25,
+          "question": "I have _________ idea of what happened yesterday.",
+          "options": [
+            "a",
+            "an",
+            "the",
+            "no article needed"
+          ],
+          "correctIndex": 1,
+          "explanation": ""
+        },
+        {
+          "id": 26,
+          "question": "Choose the word that is opposite in meaning to prohibit.",
+          "options": [
+            "forbid",
+            "proscribe",
+            "permit",
+            "disallow"
+          ],
+          "correctIndex": 2,
+          "explanation": ""
+        },
+        {
+          "id": 27,
+          "question": "_________ is the poem written by?",
+          "options": [
+            "Who",
+            "How",
+            "Whom",
+            "Whose"
+          ],
+          "correctIndex": 0,
+          "explanation": ""
+        },
+        {
+          "id": 28,
+          "question": "Which of the following sentences uses the past continuous tense?",
+          "options": [
+            "I read a book yesterday.",
+            "I was reading a book when you called on me.",
+            "He is going to read a book tomorrow.",
+            "She reads a book every night as a matter of habit."
+          ],
+          "correctIndex": 1,
+          "explanation": ""
+        }
+      ]
     },
     {
       "name": "Science",
-      "questions": []
+      "questions": [
+        {
+          "id": 1,
+          "question": "അന്തരീക്ഷത്തിലെ ഏത് ഭാഗത്താണ് ഓസോൺ പാളി സ്ഥിതി ചെയ്യുന്നത്?",
+          "options": [
+            "ട്രോപോസ്ഫിയറിൽ",
+            "മിസോസ്ഫിയറിൽ",
+            "സ്ട്രാറ്റോസ്ഫിയറിൽ",
+            "അയോണോസ്ഫിയറിൽ"
+          ],
+          "correctIndex": 2,
+          "explanation": ""
+        },
+        {
+          "id": 2,
+          "question": "കെരാറ്റോ പ്ലാസ്റ്റി ഏത് അവയവവുമായി ബന്ധപ്പെട്ടിരിക്കുന്നു?",
+          "options": [
+            "ഹൃദയം",
+            "കണ്ണ്",
+            "വ്യക്ക",
+            "ത്വക്ക്"
+          ],
+          "correctIndex": 1,
+          "explanation": ""
+        },
+        {
+          "id": 3,
+          "question": "മനുഷ്യ ശരീരത്തിലെ അസ്ഥികളുടെ എണ്ണം?",
+          "options": [
+            "200",
+            "204",
+            "206",
+            "209"
+          ],
+          "correctIndex": 2,
+          "explanation": ""
+        },
+        {
+          "id": 4,
+          "question": "മനുഷ്യ നിർമിത പരിസ്ഥിതിയിൽ ഉൾപ്പെടുന്നത്?",
+          "options": [
+            "ഭാഷ",
+            "ആചാരാനുഷ്ഠാനങ്ങൾ",
+            "ആശയവിനിമയ ഉപാധികൾ",
+            "ഉത്സവങ്ങൾ"
+          ],
+          "correctIndex": 2,
+          "explanation": ""
+        },
+        {
+          "id": 5,
+          "question": "കോശത്തിലെ ട്രാഫിക് പോലീസ് എന്നറിയപ്പെടുന്നത്?",
+          "options": [
+            "ലൈസോസോം",
+            "മൈറ്റോകോൺട്രിയ",
+            "റൈബോസോം",
+            "ഗോൾഗി കോംപ്ലക്സ്"
+          ],
+          "correctIndex": 3,
+          "explanation": ""
+        },
+        {
+          "id": 6,
+          "question": "ഒരു കോമ്പൗണ്ട് മൈക്രോസ്കോപ്പിൽ വസ്‌തുവിൽ പതിക്കുന്ന പ്രകാശം നിയന്ത്രിക്കുന്ന ഭാഗം?",
+          "options": [
+            "ഐ പീസ്",
+            "ഡയഫ്രം",
+            "ഒബ്ജക്ടീവ് ലെൻസ്",
+            "സ്റ്റേജും ക്ലിപ്പും"
+          ],
+          "correctIndex": 1,
+          "explanation": ""
+        },
+        {
+          "id": 7,
+          "question": "ഗൺമെറ്റൽ എന്ന ലോഹസങ്കരം ഏതൊക്കെ മൂലകങ്ങൾ ചേർന്നതാണ്?",
+          "options": [
+            "Cu, Sn, Zn",
+            "Cu, Fe, Zn",
+            "Cu, Sn, Fe",
+            "Cu, Al, Zn"
+          ],
+          "correctIndex": 0,
+          "explanation": ""
+        },
+        {
+          "id": 8,
+          "question": "കൊതുക് പരത്തുന്ന രോഗങ്ങൾക്ക് ഉദാഹരണമല്ലാത്തത് ഏതാണ്?",
+          "options": [
+            "മലമ്പനി",
+            "ജപ്പാൻ ജ്വരം",
+            "കോളറ",
+            "മന്ത്"
+          ],
+          "correctIndex": 2,
+          "explanation": ""
+        },
+        {
+          "id": 9,
+          "question": "പ്രകാശസംശ്ലേഷണ ഫലമായി പുറത്തു വിടുന്ന ഓക്സിജൻ ലഭ്യമാകുന്നത്?",
+          "options": [
+            "അന്തരീക്ഷത്തിൽ നിന്നും",
+            "ജലത്തിൽ നിന്നും",
+            "കാർബൺഡയോക്സിഡിൽ നിന്നും",
+            "ഹരിതകത്തിൽ നിന്നും"
+          ],
+          "correctIndex": 1,
+          "explanation": ""
+        },
+        {
+          "id": 10,
+          "question": "പുനഃചംക്രമണത്തിന് സാധിക്കുന്ന അജൈവ മാലിന്യം?",
+          "options": [
+            "തെർമോകോൾ",
+            "റെക്സിൻ",
+            "പോളിയെസ്റ്റർ തുണി",
+            "പ്ലാസ്റ്റിക് ക്യാരി ബാഗ്"
+          ],
+          "correctIndex": 3,
+          "explanation": ""
+        },
+        {
+          "id": 11,
+          "question": "രക്തത്തിലെ pH മൂല്യം എത്ര?",
+          "options": [
+            "ഏഴ്",
+            "ഏഴിൽ കൂടുതൽ",
+            "ഏഴിൽ കുറവ്",
+            "ഇതൊന്നുമല്ല"
+          ],
+          "correctIndex": 1,
+          "explanation": ""
+        },
+        {
+          "id": 12,
+          "question": "അന്തരീക്ഷ വായുവിൽ ഏറ്റവും കൂടുതൽ അടങ്ങിയ ഘടകം?",
+          "options": [
+            "കാർബൺ ഡൈ ഓക്സൈഡ്",
+            "ഓക്സിജൻ",
+            "നൈട്രജൻ",
+            "ഹൈഡ്രജൻ"
+          ],
+          "correctIndex": 2,
+          "explanation": ""
+        },
+        {
+          "id": 13,
+          "question": "കോളറ പരത്തുന്ന ജീവികളാണ്?",
+          "options": [
+            "ബാക്ടീരിയ",
+            "ഫംഗസ്",
+            "പ്ലാസ്മോഡിയം",
+            "വൈറസ്"
+          ],
+          "correctIndex": 0,
+          "explanation": ""
+        },
+        {
+          "id": 14,
+          "question": "കാന്തം നിർമ്മിക്കാനുപയോഗിക്കുന്ന ലോഹസങ്കരമാണ് 'അൽനിക്കോ'. ഇത് ഏതൊക്കെ മൂലകങ്ങൾ ചേർന്നതാണ്?",
+          "options": [
+            "ഇരുമ്പ്, നിക്കൽ, സിങ്ക്, കൊബാൾട്ട്",
+            "ഇരുമ്പ്, നിക്കൽ, അലൂമിനിയം, കൊബാൾട്ട്",
+            "ഇരുമ്പ്, നിക്കൽ, ടിൻ, കൊബാൾട്ട്",
+            "ഇരുമ്പ്, സിങ്ക്, അലൂമിനിയം, കൊബാൾട്ട്"
+          ],
+          "correctIndex": 1,
+          "explanation": ""
+        },
+        {
+          "id": 15,
+          "question": "Exobiology എന്നത് എന്തിനെക്കുറിച്ചുള്ള പഠനമാണ്?",
+          "options": [
+            "ജീവികളുടെ ബാഹ്യ സ്വഭാവങ്ങളെ കുറിച്ച്",
+            "അന്തരീക്ഷത്തിലെ പുറംപാളിയിലെ ജീവികളെക്കുറിച്ച്",
+            "ഭൗമോപരിതലത്തിലെ ജീവികളെക്കുറിച്ച്",
+            "ബഹിരാകാശത്തിലെയും മറ്റു ഗ്രഹങ്ങളിലേയും ജീവികളെക്കുറിച്ച്"
+          ],
+          "correctIndex": 3,
+          "explanation": ""
+        },
+        {
+          "id": 16,
+          "question": "പരിസ്ഥിതി സൗഹൃദമായ 3Rs എന്ന് വിശേഷിപ്പിക്കുന്നത്?",
+          "options": [
+            "Reduce, Reuse, Recall",
+            "Reduce, Reuse, Recycle",
+            "Reduce, Restrict, Recall",
+            "Reduce, Rebuild, Recycle"
+          ],
+          "correctIndex": 1,
+          "explanation": ""
+        },
+        {
+          "id": 17,
+          "question": "വായുവിലൂടെ പകരുന്ന രോഗത്തിന് ഉദാഹരണം?",
+          "options": [
+            "മീസിൽസ്",
+            "ടൈഫോയ്‌ഡ്",
+            "ചിക്കൻഗുനിയ",
+            "മഞ്ഞപ്പിത്തം"
+          ],
+          "correctIndex": 0,
+          "explanation": ""
+        },
+        {
+          "id": 18,
+          "question": "താഴെ കൊടുത്തിരിക്കുന്നവയിൽ കൊഴുപ്പിൽ ലയിക്കുന്ന വിറ്റാമിനുകളുടെ കൂട്ടം ഏത്?",
+          "options": [
+            "വിറ്റാമിൻ A, വിറ്റാമിൻ B, വിറ്റാമിൻ E, വിറ്റാമിൻ K",
+            "വിറ്റാമിൻ A, വിറ്റാമിൻ C, വിറ്റാമിൻ E, വിറ്റാമിൻ K",
+            "വിറ്റാമിൻ A, വിറ്റാമിൻ D, വിറ്റാമിൻ E, വിറ്റാമിൻ K",
+            "വിറ്റാമിൻ A, വിറ്റാമിൻ D, വിറ്റാമിൻ C, വിറ്റാമിൻ K"
+          ],
+          "correctIndex": 2,
+          "explanation": ""
+        },
+        {
+          "id": 19,
+          "question": "താഴെ കൊടുത്തിരിക്കുന്നതിൽ മണ്ണിലെ നൈട്രജൻ സ്ഥിരീകരണത്തിനു സഹായിക്കുന്ന ബാക്ടീരിയ?",
+          "options": [
+            "അസറ്റോബാക്ടർ",
+            "നൈട്രോബാക്ടർ",
+            "റൈസോബിയം",
+            "ക്ലോസ്ട്രീഡിയം"
+          ],
+          "correctIndex": 0,
+          "explanation": ""
+        },
+        {
+          "id": 20,
+          "question": "പ്രകൃതി കൃഷിയുടെ ആചാര്യൻ?",
+          "options": [
+            "കല്ലേൻ പൊക്കുടൻ",
+            "ഇ.എഫ്. ഷുമാക്കർ",
+            "റേച്ചൽ കാർസൺ",
+            "മസനോബു ഫുക്കുവോക്ക"
+          ],
+          "correctIndex": 3,
+          "explanation": ""
+        },
+        {
+          "id": 21,
+          "question": "ഒന്നാം വർഗ്ഗ ഉത്തോലകത്തിനു ഉദാഹരണം?",
+          "options": [
+            "കൈവണ്ടി",
+            "കൈത്തണ്ട",
+            "ചവണ",
+            "കത്രിക"
+          ],
+          "correctIndex": 3,
+          "explanation": ""
+        },
+        {
+          "id": 22,
+          "question": "ചുറ്റുപാടുകളെ നിരീക്ഷിക്കാൻ കുട്ടികളെ സഹായിക്കുന്നത്?",
+          "options": [
+            "പ്രകൃതി നടത്തം",
+            "പഠനയാത്ര",
+            "പ്രോജക്ട്",
+            "ശാസ്ത്ര മ്യൂസിയം"
+          ],
+          "correctIndex": 0,
+          "explanation": ""
+        },
+        {
+          "id": 23,
+          "question": "താഴെ പറയുന്നതിൽ സസ്യ വളർച്ചക്കാവശ്യമായ ആവശ്യ മൂലകങ്ങളിൽ ഉൾപ്പെടാത്തത് ഏത്?",
+          "options": [
+            "കാർബൺ",
+            "മെർക്കുറി",
+            "ഓക്സിജൻ",
+            "സൾഫർ"
+          ],
+          "correctIndex": 1,
+          "explanation": ""
+        },
+        {
+          "id": 24,
+          "question": "സൂര്യനും ഭൂമിക്കുമിടയിൽ ചന്ദ്രൻ നേർരേഖയിൽ വരുമ്പോൾ സംഭവിക്കുന്ന പ്രതിഭാസം?",
+          "options": [
+            "സൂര്യഗ്രഹണം",
+            "ചന്ദ്രഗ്രഹണം",
+            "പൗർണമി",
+            "അമാവാസി"
+          ],
+          "correctIndex": 0,
+          "explanation": ""
+        },
+        {
+          "id": 25,
+          "question": "കോശത്തിലെ പവർ ഹൗസ് എന്നറിയപ്പെടുന്നത്?",
+          "options": [
+            "ലൈസോസോം",
+            "മൈറ്റോകോൺട്രിയ",
+            "റൈബോസോം",
+            "ഗോൾഗി കോംപ്ലക്സ്"
+          ],
+          "correctIndex": 1,
+          "explanation": ""
+        }
+      ]
     },
     {
       "name": "KTET Full Syllabus",
